@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 40px;
   background: linear-gradient(135deg, #4a6fa5, #10161d);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -10,10 +10,151 @@
   position: relative;
 }
 
-/* Base style for shapes */
+@media (max-width: 768px) {
+  .divider-men {
+     min-height: 100vh;
+  }
+}
+
+.divider-men-info {
+  display: flex;
+  align-items: center;
+  padding: 4vh 4vw;
+  flex-direction: row;
+  gap: 18vw;
+  padding: auto;
+}
+
+@media (max-width: 768px) {
+  .divider-men-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+}
+
+.divider-men-content {
+  display: flex;
+  flex-direction: column;
+  padding: auto;
+  gap: 1vh;
+  z-index: 4;
+}
+
+.divider-men-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.divider-men-content p {
+  font-size: 18px;
+  color: white;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.divider-men-button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 24px;
+  background: #4a89c7;
+  color: white;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.divider-men-button:hover {
+  background: #346a9b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+.divider-men-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2; /* model image above shapes */
+}
+
+@media (max-width: 768px) {
+  .divider-men-image {
+    order: 2;
+    margin-top: 1rem;
+  }
+}
+
+.divider-men-image img {
+  width: auto;
+  height: 720px;
+  object-fit: contain;
+  border-radius: 20px;
+
+  /* Fade bottom into transparency */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+@media (max-width: 768px) {
+  .divider-men-image img {
+    order: 2;
+    height: 300px;  /* smaller on mobile */
+  }
+}
+
+/* --- ANIMATION STATES --- */
+
+/* Start with content + image slightly off-screen and invisible */
+.divider-men-content,
+.divider-men-image {
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+/* Before it becomes visible */
+.divider-men:not(.divider-men--visible) .divider-men-content {
+  transform: translateX(-40px);
+  opacity: 0;
+}
+
+.divider-men:not(.divider-men--visible) .divider-men-image {
+  transform: translateX(40px);
+  opacity: 0;
+}
+
+/* When in view, slide into place */
+.divider-men.divider-men--visible .divider-men-content,
+.divider-men.divider-men--visible .divider-men-image {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Optional: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .divider-men-content,
+  .divider-men-image {
+    transition: none;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* --- ALL SHAPES BASE STYLE --- */
 .shape-m {
   position: absolute;
-  opacity: 0.7;
+  opacity: 0;   /* start invisible */
   z-index: 1;
   pointer-events: none;
 
@@ -36,7 +177,7 @@
   pointer-events: none;
 }
 
-/* --- Shapes (blue/grey palette) --- */
+/* --- INDIVIDUAL SHAPES (SCATTERED) --- */ --- */
 
 /* Top-left large circle */
 .m1 {
@@ -46,6 +187,20 @@
   border-radius: 50%;
   top: -300px;
   left: -250px;
+
+  animation: m1-rotate-in 1.8s ease-out forwards;
+  animation-delay: 0.05s;
+}
+
+@keyframes m1-rotate-in {
+  0% {
+    transform: scale(0.7) rotate(-25deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(5deg);
+    opacity: 0.7;
+  }
 }
 
 /* Top-right angled block */
@@ -56,19 +211,80 @@
   border-radius: 40px;
   top: -120px;
   right: -80px;
-  transform: rotate(20deg);
+
+  animation: m2-rotate-in 2s ease-out forwards;
+  animation-delay: 0.125s;
+}
+
+@keyframes m2-rotate-in {
+  0% {
+    transform: scale(0.7) rotate(-40deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(20deg);
+    opacity: 0.7;
+  }
 }
 
 /* Center-left medium circle */
-/* .m3 {
+.m3 {
   width: 360px;
   height: 360px;
   background: #3e6ba3;
   border-radius: 6.25%;
   bottom: -280px;
   left: -20%;
-  transform: rotate(35deg);
-} */
+
+  animation: m3-rotate-in 1.9s ease-out forwards;
+  animation-delay: 0.175s;
+}
+
+@keyframes m3-rotate-in {
+  0% {
+    transform: scale(0.6) rotate(35deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 768px) {
+  .m3 {
+    display: none;
+  }
+}
+
+.m4 {
+  width: 260px;
+  height: 260px;
+  background: #506b8a;
+  border-radius: 40px;
+  bottom: -120px;
+  right: -40px;
+
+  animation: m4-rotate-in 1.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes m4-rotate-in {
+  0% {
+    transform: scale(0.6) rotate(-30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(10deg);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 768px) {
+  .m4 {
+    display: none;
+  }
+}
 
 /* Mid-left rotated square */
 .m5 {
@@ -78,7 +294,20 @@
   border-radius: 30px;
   top: 25%;
   left: -120px;
-  transform: rotate(35deg);
+
+  animation: m5-rotate-in 2s ease-out forwards;
+  animation-delay: 0.225s;
+}
+
+@keyframes m5-rotate-in {
+  0% {
+    transform: scale(0.6) rotate(80deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(35deg);
+    opacity: 0.7;
+  }
 }
 
 /* Mid-right tall pill blob */
@@ -89,7 +318,20 @@
   border-radius: 200px;
   top: 40%;
   right: 12%;
-  transform: rotate(15deg);
+
+  animation: m6-rotate-in 1.6s ease-out forwards;
+  animation-delay: 0.25s;
+}
+
+@keyframes m6-rotate-in {
+  0% {
+    transform: scale(0.7) rotate(-30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(15deg);
+    opacity: 0.7;
+  }
 }
 
 /* Center-right circle */
@@ -100,125 +342,18 @@
   border-radius: 50%;
   top: 10%;
   right: 28%;
+
+  animation: m7-rotate-in 2s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
-/* ----- CONTENT ----- */
-
-.divider-men-content {
-  flex: 1;
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 10vw;
-  z-index: 5;
-}
-
-.divider-men-content h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: #f3f3f3;
-  margin: 0;
-}
-
-.divider-men-content p {
-  font-size: 18px;
-  color: #d9d9d9;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.divider-men-button {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 12px 24px;
-  background: #4a89c7;
-  color: white;
-  border-radius: 40px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.divider-men-button:hover {
-  background: #346a9b;
-  transform: translateY(-2px);
-}
-
-/* ----- IMAGE ----- */
-.divider-men-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  z-index: 2;
-}
-
-.divider-men-image img {
-  width: auto;
-  height: 720px;
-  object-fit: contain;
-  border-radius: 20px;
-
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 40%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 40%,
-    rgba(0, 0, 0, 0) 100%
-  );
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .divider-men {
-    flex-direction: column-reverse;
-    padding: 20px;
+@keyframes m7-rotate-in {
+  0% {
+    transform: scale(0.6) rotate(-40deg);
+    opacity: 0;
   }
-
-  .divider-men-content {
-    max-width: 100%;
-    text-align: center;
-  }
-
-  .divider-men-image img {
-    height: 300px;
-  }
-}
-
-/* --- ANIMATION STATES (MEN DIVIDER) --- */
-
-.divider-men-content,
-.divider-men-image {
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-}
-
-/* Initial state: image slides in from left, content from right */
-.divider-men:not(.divider-men--visible) .divider-men-image {
-  transform: translateX(-40px);
-  opacity: 0;
-}
-
-.divider-men:not(.divider-men--visible) .divider-men-content {
-  transform: translateX(40px);
-  opacity: 0;
-}
-
-/* When in view */
-.divider-men.divider-men--visible .divider-men-image,
-.divider-men.divider-men--visible .divider-men-content {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* Optional: reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .divider-men-content,
-  .divider-men-image {
-    transition: none;
-    transform: none !important;
-    opacity: 1 !important;
+  100% {
+    transform: scale(1) rotate(10deg);
+    opacity: 0.7;
   }
 }

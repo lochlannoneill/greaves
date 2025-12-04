@@ -12,6 +12,19 @@ export const DividerWomen = () => {
       ref={ref}
       className={`divider-women ${isVisible ? "divider-women--visible" : ""}`}
     >
+      <div className="divider-women-info">
+        <div className="divider-women-content">
+          <h2>Popular Amongst Women</h2>
+          <p>Discover the latest trends in women’s fashion, curated for style and comfort.</p>
+          <Link to="/women" className="divider-women-button">
+            Shop Now
+          </Link>
+        </div>
+        <div className="divider-women-image">
+          <div className="model-mask">
+            <img src={image_model} alt="Women's fashion model" />
+          </div>
+        </div>
       {/* shapes ... */}
       <div className="shape s1"></div>
       <div className="shape s2"></div>
@@ -22,18 +35,6 @@ export const DividerWomen = () => {
       <div className="shape s7"></div>
       <div className="shape s8"></div>
 
-      <div className="divider-women-content">
-        <h2>Popular Amongst Women</h2>
-        <p>Discover the latest trends in women’s fashion, curated for style and comfort.</p>
-        <Link to="/women" className="divider-women-button">
-          Shop Women Now
-        </Link>
-      </div>
-
-      <div className="divider-women-image">
-        <div className="model-mask">
-          <img src={image_model} alt="Women's fashion model" />
-        </div>
       </div>
     </div>
   );
