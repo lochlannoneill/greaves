@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Headroom>
+        <Headroom className="headroom-z">
           <Navbar />
         </Headroom>
         <Routes>

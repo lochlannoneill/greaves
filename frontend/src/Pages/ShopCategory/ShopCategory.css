@@ -81,10 +81,6 @@
   background-color: #171717;
 }
 
-.shopcateogry-items {
-  padding: 0 4vw;
-}
-
 .shopcategory-products-parent {
   display: flex;
   flex-direction: column;

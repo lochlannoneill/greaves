@@ -2,12 +2,5 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 4vh;
   max-width: 100%;
-}
-
-@media screen and (max-width: 768px) {
-  .itemlist {
-    gap: 4vh;
-  }
 }

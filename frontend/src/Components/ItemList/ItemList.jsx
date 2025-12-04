@@ -12,12 +12,14 @@ export const ItemList = ({ products, category }) => {
     <div className="itemlist">
       {filteredProducts.map((item, index) => (
         <Item
-          key={index}
+          key={item.id}
+          index={index}
           id={item.id}
           title={item.title}
           images={item.images}
           price={item.price}
           price_previous={item.price_previous}
+          description={item.description}
           reviews={item.reviews}
         />
       ))}
