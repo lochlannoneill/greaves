@@ -20,7 +20,7 @@ export const Popular = () => {
 
   // Helper: pick 4 random items
   const getRandomFour = (arr) => {
-    return [...arr].sort(() => Math.random() - 0.5).slice(0, 4);
+    return [...arr].sort(() => Math.random() - 0.5).slice(0, 5);
   };
 
   return (

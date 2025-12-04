@@ -11,7 +11,7 @@ export const NewCollections = () => {
 
   // Helper: get 8 random items
   const getRandomEight = (arr) => {
-    return [...arr].sort(() => Math.random() - 0.5).slice(0, 8);
+    return [...arr].sort(() => Math.random() - 0.5).slice(0, 10);
   };
 
   return (
