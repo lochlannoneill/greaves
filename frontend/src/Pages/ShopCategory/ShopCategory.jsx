@@ -25,16 +25,6 @@ export const ShopCategory = (props) => {
         <div className="shopcateogry-items">
           <ItemList products={products} category={props.category} />
         </div>
-        <div className="shopcategory-showmore">
-          <p className="shopcategory-showmore-results">
-            Showing <b>1-12</b> of {props.category}.total results
-          </p>
-          <div className="shopcategory-showmore-button">
-            <p>
-              Show More <FontAwesomeIcon icon={faChevronDown} size="2xs" />
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );
