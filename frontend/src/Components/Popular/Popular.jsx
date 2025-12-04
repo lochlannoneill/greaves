@@ -1,5 +1,7 @@
 import React from "react";
 import products from "../../Assets/products/product_data.js";
+import { DividerWomen } from "../DividerWomen/DividerWomen.jsx";
+import { DividerMen } from "../DividerMen/DividerMen.jsx";
 import { ItemList } from "../ItemList/ItemList";
 import "./Popular.css";
 
@@ -16,14 +18,14 @@ export const Popular = () => {
   return (
     <div className="popular">
       <div className="popular-category popular-women">
-        <h1>Popular in Women</h1>
+        <DividerWomen />
         <div className="popular-list">
           <ItemList products={popularWomenProducts} />
         </div>
       </div>
 
       <div className="popular-category popular-men">
-        <h1>Popular in Men</h1>
+        <DividerMen />
         <div className="popular-list">
           <ItemList products={popularMenProducts} />
         </div>
