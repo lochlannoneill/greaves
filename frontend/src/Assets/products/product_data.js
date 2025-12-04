@@ -1,4 +1,8 @@
-import p1_img from "./images/product_1.png";
+import p1_i1 from "./images/p1_i1.png";
+import p1_i2 from "./images/p1_i2.png";
+import p1_i3 from "./images/p1_i3.png";
+import p1_i4 from "./images/p1_i4.png";
+import p1_i5 from "./images/p1_i5.png";
 import p2_img from "./images/product_2.png";
 import p3_img from "./images/product_3.png";
 import p4_img from "./images/product_4.png";
@@ -45,7 +49,7 @@ let products = [
   {
     id: 1,
     title: "Long Sleeved Knit Sweater",
-    images: [p1_img, p2_img, p3_img, p4_img, p5_img],
+    images: [p1_i1, p1_i2, p1_i3, p1_i4, p1_i5],
     description:
       "Stay cozy and stylish during the colder months with this striped knit sweater. Made from soft and warm fabric, it features a timeless striped pattern that adds a touch of sophistication to any outfit.",
     tags: ["new", "popular", "modern", "elegant", "knit", "cozy"],
@@ -103,7 +107,7 @@ let products = [
     images: [p4_img],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    tags: ["popular", "modern", "latest", "elegant", "knit"],
+    tags: ["modern", "latest", "elegant", "knit"],
     category: "women",
     rating: 3.5,
     stock: {
@@ -158,7 +162,7 @@ let products = [
     images: [p7_img],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    tags: ["modern", "latest", "cozy"],
+    tags: ["popular", "modern", "latest", "cozy"],
     category: "women",
     rating: 3.5,
     stock: {
@@ -559,7 +563,7 @@ let products = [
     images: [p29_img],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    tags: ["new", "modern", "latest"],
+    tags: ["modern", "latest"],
     category: "boys",
     rating: 3.5,
     stock: {
@@ -669,7 +673,7 @@ let products = [
     images: [p35_img],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    tags: ["new", "modern", "latest"],
+    tags: ["modern", "latest"],
     category: "boys",
     rating: 3.5,
     stock: {
