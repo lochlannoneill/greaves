@@ -85,9 +85,9 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-rating">
             {reviewCount > 0 ? (
               <>
-                <p className="productdisplay-right-rating-value">
+                {/* <p className="productdisplay-right-rating-value">
                   {reviewAverageRating}
-                </p>
+                </p> */}
                 <span className="productdisplay-right-rating-stars">
                   {[...Array(Math.floor(reviewAverageRating))].map(
                     (_, index) => (
@@ -135,11 +135,11 @@ export const ProductDisplay = (props) => {
           </div>
         </div>
         <div className="productdisplay-right-info">
-          {product.price_previous && (
+          {/* {product.price_previous && (
             <p className="productdisplay-right-discount">
               -{percentageReduced}%
             </p>
-          )}
+          )} */}
           <div className="productdisplay-right-prices">
             <p
               className={`productdisplay-right-price ${
@@ -173,7 +173,7 @@ export const ProductDisplay = (props) => {
             </p>
           </div>
         </div>
-        <hr />
+        {/* <hr /> */}
         <div className="productdisplay-tags">
           {product.tags.map((tag, index) => (
             <span key={index} className="productdisplay-tag">

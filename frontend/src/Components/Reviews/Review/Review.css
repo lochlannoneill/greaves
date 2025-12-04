@@ -1,7 +1,7 @@
 .review {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* Retain gap for items inside */
+  gap: 8px; /* Retain gap for items inside */
 }
 
 .review:not(:last-of-type) {
@@ -75,11 +75,11 @@
 }
 
 .review-info-rating-half {
-  color: orange;
+  color: darkorange;
 }
 
 .review-info-rating-full {
-  color: orange;
+  color: darkorange;
 }
 
 .review-info-summary {
@@ -122,6 +122,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1vh;
+  padding-bottom: 1vh;
 }
 
 .review-images img {
@@ -188,7 +189,6 @@
   color: #3a3a3a;
   font-size: 1rem;
   line-height: 1.5;
-  padding: 1vh 0;
 }
 
 .review-helpful {
