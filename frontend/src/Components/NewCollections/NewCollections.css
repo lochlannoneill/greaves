@@ -1,7 +1,3 @@
-.new-collections {
-  margin: 4vh 4vw;
-}
-
 .new-collections h1 {
   text-align: center;
   color: #171717; /* TODO: Color variables */
@@ -12,7 +8,6 @@
 .collections-parent {
   display: flex;
   justify-content: center;
-  padding: 2vh 0;
 }
 
 .collections {

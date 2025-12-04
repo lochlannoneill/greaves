@@ -46,9 +46,9 @@ export const Item = (props) => {
           {props.price < props.price_previous && (
             <div className="item-reduced">
               <div className="item-reduced-content">
-                -
                 {calculateDiscountPercentage(props.price, props.price_previous)}
-                % ON SALE
+                % 
+                REDUCED
               </div>
             </div>
           )}

@@ -11,7 +11,6 @@ export const NewCollections = () => {
 
   return (
     <div className="new-collections">
-      <h1>New Collections</h1>
       <div className="collections-parent">
         <div className="collections">
           <div className="collections-category">
