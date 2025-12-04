@@ -18,6 +18,7 @@ export const ItemList = ({ products, category }) => {
           images={item.images}
           price={item.price}
           price_previous={item.price_previous}
+          description={item.description}
           reviews={item.reviews}
         />
       ))}

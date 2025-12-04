@@ -151,6 +151,10 @@
   font-weight: 700;
 }
 
+.productdisplay-right-rating-reviews {
+  font-weight: 500;
+}
+
 .productdisplay-right-prices {
   display: flex;
   align-items: center;

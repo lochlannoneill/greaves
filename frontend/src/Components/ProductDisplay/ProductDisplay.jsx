@@ -124,7 +124,7 @@ export const ProductDisplay = (props) => {
                     });
                   }}
                 >
-                  out of {reviewCount} reviews
+                  {reviewCount} reviews
                 </a>
               </>
             ) : (
