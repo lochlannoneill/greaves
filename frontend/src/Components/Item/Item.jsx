@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar as faStar_solid,
@@ -9,6 +8,7 @@ import {
   faCartShopping as faCartShopping_solid,
 } from "@fortawesome/free-solid-svg-icons";
 import { ShopContext } from "../../Context/ShopContext";
+import { useInView } from "../../Hooks/useInView";
 import "./Item.css";
 
 const maxTitleChars = 48;
@@ -25,8 +25,9 @@ export const Item = (props) => {
 
   const [reviewCount, setReviewCount] = useState(0);
   const [reviewAverageRating, setReviewAverageRating] = useState(0);
-
   const [hoverImage, setHoverImage] = useState(props.images[0]);
+
+  const { ref, isVisible } = useInView({ threshold: 0.05 });
 
   useEffect(() => {
     if (reviews) {
@@ -36,36 +37,48 @@ export const Item = (props) => {
     }
   }, [reviews, props.id, getReviewInfo]);
 
-  // keep hoverImage in sync if the product images change
   useEffect(() => {
     if (props.images && props.images.length > 0) {
       setHoverImage(props.images[0]);
     }
   }, [props.images]);
 
-  // Calculate the discount percentage for each item individually
   const calculateDiscountPercentage = (price, price_previous) => {
     return (((price_previous - price) / price_previous) * 100).toFixed(0);
   };
 
+  // 👇 stagger delay based on index (80ms per card)
+  const rawDelay = (props.index ?? 0) * 80;
+  const staggerDelay = isVisible
+    ? `${Math.min(rawDelay, 300)}ms`  // never more than 300ms
+    : "0ms";
+    
   return (
-    <div className="item">
+    <div
+      ref={ref}
+      className={`item ${isVisible ? "item--visible" : ""}`}
+      style={{ transitionDelay: staggerDelay }}
+    >
       <Link to={`/products/${props.id}`} onClick={() => window.scrollTo(0, 0)}>
         <div className="item-image-container">
-          {/* main image uses hoverImage */}
-          <img className="item-image" src={hoverImage} alt={props.title} />
+          {/* Only render the image when visible */}
+          {isVisible && (
+            <img
+              className="item-image"
+              src={hoverImage}
+              alt={props.title}
+            />
+          )}
 
           {/* Overlay that appears on hover */}
           <div
             className="item-hover-overlay"
-            // when leaving the overlay, reset back to first image
             onMouseLeave={() =>
               props.images && props.images.length > 0
                 ? setHoverImage(props.images[0])
                 : null
             }
           >
-            {/* Left column: image list */}
             <div className="item-image-list">
               {props.images.slice(0, 3).map((img, index) => (
                 <img

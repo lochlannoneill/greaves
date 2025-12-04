@@ -201,3 +201,39 @@
     height: 300px;  /* smaller on mobile */
   }
 }
+
+/* --- ANIMATION STATES --- */
+
+/* Start with content + image slightly off-screen and invisible */
+.divider-women-content,
+.divider-women-image {
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+/* Before it becomes visible */
+.divider-women:not(.divider-women--visible) .divider-women-content {
+  transform: translateX(-40px);
+  opacity: 0;
+}
+
+.divider-women:not(.divider-women--visible) .divider-women-image {
+  transform: translateX(40px);
+  opacity: 0;
+}
+
+/* When in view, slide into place */
+.divider-women.divider-women--visible .divider-women-content,
+.divider-women.divider-women--visible .divider-women-image {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Optional: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .divider-women-content,
+  .divider-women-image {
+    transition: none;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

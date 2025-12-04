@@ -1,0 +1,12 @@
+.headroom-z {
+  z-index: 9999 !important; /* or whatever you need */
+}
+
+.headroom-z .headroom {
+  z-index: 9999 !important;
+}
+
+.headroom-z .headroom--pinned,
+.headroom-z .headroom--unpinned {
+  z-index: 9999 !important;
+}

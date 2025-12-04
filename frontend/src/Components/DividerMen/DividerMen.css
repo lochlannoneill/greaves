@@ -60,15 +60,15 @@
 }
 
 /* Center-left medium circle */
-.m3 {
-  width: 420px;
-  height: 420px;
+/* .m3 {
+  width: 360px;
+  height: 360px;
   background: #3e6ba3;
   border-radius: 6.25%;
   bottom: -280px;
-  left: 27%;
+  left: -20%;
   transform: rotate(35deg);
-}
+} */
 
 /* Mid-left rotated square */
 .m5 {
@@ -185,5 +185,40 @@
 
   .divider-men-image img {
     height: 300px;
+  }
+}
+
+/* --- ANIMATION STATES (MEN DIVIDER) --- */
+
+.divider-men-content,
+.divider-men-image {
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+/* Initial state: image slides in from left, content from right */
+.divider-men:not(.divider-men--visible) .divider-men-image {
+  transform: translateX(-40px);
+  opacity: 0;
+}
+
+.divider-men:not(.divider-men--visible) .divider-men-content {
+  transform: translateX(40px);
+  opacity: 0;
+}
+
+/* When in view */
+.divider-men.divider-men--visible .divider-men-image,
+.divider-men.divider-men--visible .divider-men-content {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Optional: reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .divider-men-content,
+  .divider-men-image {
+    transition: none;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }

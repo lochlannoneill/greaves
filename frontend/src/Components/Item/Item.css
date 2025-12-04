@@ -331,3 +331,34 @@
     flex-direction: column;
   }
 }
+
+/* Scroll-in animation for product cards */
+.item {
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  opacity: 0;
+}
+
+.item.item--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional: extra subtle effect on the image itself */
+.item:not(.item--visible) .item-image {
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 0.5s ease-out;
+}
+
+.item.item--visible .item-image {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .item-image {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -2,10 +2,16 @@ import React from "react";
 import image_model from "../../Assets/image_divider_man.png";
 import { Link } from "react-router-dom";
 import "./DividerMen.css";
+import { useInView } from "../../Hooks/useInView";
 
 export const DividerMen = () => {
+  const { ref, isVisible } = useInView({ threshold: 0.1 });
+
   return (
-    <div className="divider-men">
+    <div
+      ref={ref}
+      className={`divider-men ${isVisible ? "divider-men--visible" : ""}`}
+    >
       <div className="shape-m m1"></div>
       <div className="shape-m m2"></div>
       <div className="shape-m-opaque m3"></div>
