@@ -44,6 +44,7 @@ import p39_img from "./images/product_39.png";
 import p40_img from "./images/product_40.png";
 import p41_img from "./images/product_41.png";
 import p42_img from "./images/product_42.png";
+import p43_img from "./images/product_43.jpg";
 
 let products = [
   {
@@ -812,6 +813,24 @@ let products = [
       xxlarge: 0,
     },
     price: 57.99,
+  },
+    {
+    id: 43,
+    title: "Long Sleeve Knitted Bowknot Sweater Top Pleated Skirt Outfits Set Fall Winter Casual Dress",
+    images: [p43_img],
+    description:
+      "Girls fall winter clothes set, Warm knitted sweater with delicate bow on it paired with cute solid colour pleated skirt. No need to bother with matching, it can make your little princess more elegant and lovely. Made of high quality nylon and polyester fabrics, this baby girls clothes outfit is skin-friendly, comfortable and warm, perfect for little girls.Girls casual dress is perfect for cool spring, autumn and winter seasons. Whether it's a school event, outdoor and other casual activities, or birthday, travelling, wedding, party, shooting, Christmas and other formal occasions, wearing this set will make your girl stand out in the crowd. Our girls knitted clothes outfits are versatile and easy to mix and match, so you can mix and match them with other items in your girl's wardrobe to create a versatile look for any occasion. Our girls party dress set is designed for girls aged 2-6 years old, available in blue, pink and brown, please refer to our size chart for more details.",
+    tags: ["modern", "latest"],
+    category: "girls",
+    rating: 3.5,
+    stock: {
+      small: 1,
+      medium: 0,
+      large: 0,
+      xlarge: 0,
+      xxlarge: 0,
+    },
+    price: 19.97,
   },
 ];
 
