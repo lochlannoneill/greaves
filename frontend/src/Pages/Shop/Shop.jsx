@@ -13,8 +13,8 @@ export const Shop = () => {
 
   return (
     <div>
-      <Hero />
       <Divider />
+      <Hero />
       <NewCollections />
       <Popular />
     </div>

@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 40px;
-  background: linear-gradient(135deg, #4a6fa5, #1f2b38);
+  background: linear-gradient(135deg, #4a6fa5, #10161d);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   overflow: hidden;
   position: relative;
@@ -63,9 +63,9 @@
 .m3 {
   width: 420px;
   height: 420px;
-  background: #345b8c;
-  border-radius: 50%;
-  bottom: -240px;
+  background: #3e6ba3;
+  border-radius: 6.25%;
+  bottom: -280px;
   left: 27%;
   transform: rotate(35deg);
 }

@@ -9,13 +9,18 @@ export const NewCollections = () => {
     (product) => product.tags?.includes("new")
   );
 
+  // Helper: get 8 random items
+  const getRandomEight = (arr) => {
+    return [...arr].sort(() => Math.random() - 0.5).slice(0, 8);
+  };
+
   return (
     <div className="new-collections">
       <div className="collections-parent">
         <div className="collections">
           <div className="collections-category">
             <div className="collections-list">
-              <ItemList products={newCollectionsProducts} />
+              <ItemList products={getRandomEight(newCollectionsProducts)} />
             </div>
           </div>
         </div>

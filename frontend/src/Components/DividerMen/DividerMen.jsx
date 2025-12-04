@@ -21,13 +21,13 @@ export const DividerMen = () => {
       </div>
 
       <div className="divider-men-content">
-        <h2>Explore Men’s Collections</h2>
+        <h2>Explore Trending Collections</h2>
         <p>
           Find the latest styles in men’s fashion — modern, bold, and
           comfortable.
         </p>
         <Link to="/men" className="divider-men-button">
-          Shop Men
+          Shop Men Now
         </Link>
       </div>
     </div>

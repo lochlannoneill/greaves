@@ -19,7 +19,7 @@ export const DividerWomen = () => {
     <div className="divider-women-content">
         <h2>Popular Amongst Women</h2>
         <p>Discover the latest trends in women’s fashion, curated for style and comfort.</p>
-        <Link to="/women" className="divider-women-button">Shop Women</Link>
+        <Link to="/women" className="divider-women-button">Shop Women Now</Link>
     </div>
 
     <div className="divider-women-image">

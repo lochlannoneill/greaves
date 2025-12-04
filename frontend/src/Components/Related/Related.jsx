@@ -12,7 +12,7 @@ export const Related = ({ tags, category }) => {
   return (
     <div className="related">
       <div className="related-items-parent">
-        <h2>Related Products</h2>
+        <h2>You might also like these related items</h2>
         <div className="related-items">
           <ItemList products={relatedProducts} />
         </div>
