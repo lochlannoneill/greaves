@@ -5,7 +5,7 @@ import "./DividerWomen.css";
 import { useInView } from "../../Hooks/useInView"; // adjust path
 
 export const DividerWomen = () => {
-  const { ref, isVisible } = useInView({ threshold: 0.05 });
+  const { ref, isVisible } = useInView({ threshold: 0.5 });
 
   return (
     <div

@@ -6,7 +6,7 @@ import "./DividerMen.css";
 import { useInView } from "../../Hooks/useInView";
 
 export const DividerMen = () => {
-  const { ref, isVisible } = useInView({ threshold: 0.05 });
+  const { ref, isVisible } = useInView({ threshold: 1 });
 
   return (
     <div

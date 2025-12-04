@@ -27,7 +27,7 @@ export const Item = (props) => {
   const [reviewAverageRating, setReviewAverageRating] = useState(0);
   const [hoverImage, setHoverImage] = useState(props.images[0]);
 
-  const { ref, isVisible } = useInView({ threshold: 0.05 });
+  const { ref, isVisible } = useInView({ threshold: 0.1 });
 
   useEffect(() => {
     if (reviews) {
