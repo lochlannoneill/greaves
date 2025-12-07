@@ -28,7 +28,8 @@
 .item-image-container {
   position: relative;
   overflow: hidden;
-  height: 60vh;
+  aspect-ratio: 1 / 2;
+  max-height: 60vh;
   width: 100%;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -74,7 +75,6 @@
   }
 }
 
-/* Show overlay on hover */
 .item:hover .item-hover-overlay {
   opacity: 1;
   pointer-events: auto;
@@ -82,11 +82,11 @@
 
 .item-image-list-wrapper {
   align-self: center;
-  width: auto;          /* shrink-wrap to content until it hits max-width */
-  max-width: 100%;      /* but never exceed the card */
+  width: auto;
+  max-width: 100%;
   overflow-x: auto;
   overflow-y: visible;
-  padding: 4px 8px;     /* give space so first/last thumbs aren't on the edge */
+  padding: 4px 8px;
 }
 
 .item-image-list {
@@ -94,7 +94,7 @@
   flex-direction: row;
   gap: 8px;
   flex-wrap: nowrap;
-  justify-content: flex-start; /* ⬅️ important: no centering here */
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -102,7 +102,10 @@
 .item-thumb-expand {
   flex: 0 0 auto;
   width: 4vw;
-  height: 8vh;
+  max-width: 80px;
+  aspect-ratio: 1 / 1.5;
+  height: auto;
+  max-height: 6vh;
   object-fit: cover;
   border-radius: 6px;
   border: none;
@@ -119,6 +122,7 @@
   .item-thumb,
   .item-thumb-expand {
     width: 12vw;
+    max-width: 72px;
   }
 }
 
@@ -186,14 +190,14 @@
   );
   color: white;
   text-align: center;
-  padding: 4vh;
+  padding: 2vw;
   font-weight: bold;
   z-index: 6;
 }
 
 @media (max-width: 768px) {
   .item-reduced{
-    padding: 3vh;
+    padding: 4vw;
   }
 }
 
