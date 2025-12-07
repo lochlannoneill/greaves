@@ -5,11 +5,13 @@ import {
   faStar as faStar_solid,
   faStarHalfStroke as faStar_half,
   faCartShopping as faCartShopping_solid,
+  faExpand,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeart_regular } from "@fortawesome/free-regular-svg-icons";
 import { ShopContext } from "../../Context/ShopContext";
 import Modal from "../Modal/Modal";
-import ImageSlideshow from "../ImageSlideshow/ImageSlideshow"; // 👈 NEW
+import ImageSlideshow from "../ImageSlideshow/ImageSlideshow";
 import "./ProductDisplay.css";
 
 // Helper to split price into whole + decimals
@@ -30,9 +32,14 @@ export const ProductDisplay = (props) => {
 
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
-  // 👇 NEW: slideshow state
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
+
+  // zoom state
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomCoords, setZoomCoords] = useState({ x: 50, y: 50 });
+  const [zoomBoxPos, setZoomBoxPos] = useState({ top: 0, left: 0 });
+  const [zoomBgSize, setZoomBgSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     setSelectedImage(product.images[0]);
@@ -55,6 +62,54 @@ export const ProductDisplay = (props) => {
     setSlideshowOpen(true);
   };
 
+  // handlers for zoom box
+  const handleMouseEnter = () => setIsZoomed(true);
+  const handleMouseLeave = () => setIsZoomed(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    // cursor position relative to the image
+    const relX = e.clientX - rect.left;
+    const relY = e.clientY - rect.top;
+
+    // percentage for background position
+    const xPercent = (relX / rect.width) * 100;
+    const yPercent = (relY / rect.height) * 100;
+
+    setZoomCoords({
+      x: Math.min(100, Math.max(0, xPercent)),
+      y: Math.min(100, Math.max(0, yPercent)),
+    });
+
+    // 2x zoom relative to the main image size
+    const ZOOM_LEVEL = 2;
+    setZoomBgSize({
+      width: rect.width * ZOOM_LEVEL,
+      height: rect.height * ZOOM_LEVEL,
+    });
+
+    // pixel position for zoom box (follow cursor with a small offset)
+    const offset = 20; // distance from cursor
+    const boxWidth = 180; // approximate, matches your CSS-ish
+    const boxHeight = 220;
+
+    let left = relX + offset;
+    let top = relY + offset;
+
+    // basic clamping so it doesn’t fly totally off the image
+    if (left + boxWidth > rect.width) {
+      left = rect.width - boxWidth;
+    }
+    if (top + boxHeight > rect.height) {
+      top = rect.height - boxHeight;
+    }
+    if (left < 0) left = 0;
+    if (top < 0) top = 0;
+
+    setZoomBoxPos({ top, left });
+  };
+
   return (
     <>
       <div className="productdisplay">
@@ -62,44 +117,81 @@ export const ProductDisplay = (props) => {
         <div className="productdisplay-left">
           <div className="productdisplay-img-list">
             {product.images.slice(0, 3).map((image, index) => (
-              <img
+              <div
                 key={index}
-                src={image}
-                alt={`Product thumbnail ${index}`}
+                className="productdisplay-thumbnail-wrapper"
                 onMouseEnter={() => setSelectedImage(image)}
                 onClick={() => openSlideshowAt(index)}
-                className={`thumbnail ${
-                  selectedImage === image ? "active" : ""
-                }`}
-              />
+              >
+                <img
+                  src={image}
+                  alt={`Product thumbnail ${index}`}
+                  className={`thumbnail ${
+                    selectedImage === image ? "active" : ""
+                  }`}
+                />
+                <FontAwesomeIcon
+                  icon={faExpand }
+                  className="thumbnail-zoom-icon"
+                />
+              </div>
             ))}
+
             {product.images.length > 3 && (
               <div
                 className="product-images-expand"
-                onClick={() => openSlideshowAt(3)} // 👈 NEW (start at 4th image)
+                onClick={() => openSlideshowAt(3)} // start at 4th image
               >
                 <span className="product-images-expand-icon">
                   +{product.images.length - 3}
                 </span>
+
                 <img src={product.images[3]} alt={`product-3`} />
               </div>
             )}
           </div>
+
           <div className="productdisplay-img">
-            <img
-              className="productdisplay-main-img"
-              src={selectedImage}
-              alt="Main product"
-              // 👇 OPTIONAL: clicking main image also opens slideshow at that image
+            <div
+              className="productdisplay-main-wrapper"
               onClick={() => {
                 const idx = product.images.findIndex(
                   (img) => img === selectedImage
                 );
                 openSlideshowAt(idx === -1 ? 0 : idx);
               }}
-            />
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onMouseMove={handleMouseMove}
+            >
+              <img
+                className="productdisplay-main-img"
+                src={selectedImage}
+                alt="Main product"
+              />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="productdisplay-main-zoom-icon"
+              />
+
+              {isZoomed && (
+              <div
+                className={`productdisplay-zoom-box ${
+                  isZoomed ? "productdisplay-zoom-box--visible" : ""
+                }`}
+                style={{
+                  top: `${zoomBoxPos.top}px`,
+                  left: `${zoomBoxPos.left}px`,
+                  backgroundImage: `url(${selectedImage})`,
+                  backgroundPosition: `${zoomCoords.x}% ${zoomCoords.y}%`,
+                  backgroundSize: `${zoomBgSize.width}px ${zoomBgSize.height}px`,
+                }}
+              />
+              )}
+            </div>
           </div>
         </div>
+
         <div className="productdisplay-right">
           <div className="productdisplay-right-heading">
             <h1 className="productdisplay-right-heading-title">
@@ -180,9 +272,7 @@ export const ProductDisplay = (props) => {
               </p>
               {previousPrice && (
                 <p className="productdisplay-right-price-old">
-                  <span className="price-whole-old">
-                    {previousPrice.whole}
-                  </span>
+                  <span className="price-whole-old">{previousPrice.whole}</span>
                   <span className="price-decimals-old">
                     {previousPrice.decimals}
                   </span>
@@ -234,8 +324,8 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-size">
             <h3>Select Size</h3>
             <p>
-              Still unsure what size to get?{" "}
-              Find your <a href="/"> recommended size</a> or check out our{" "}
+              Still unsure what size to get? Find your{" "}
+              <a href="/">recommended size</a> or check out our{" "}
               <a href="/">size guide</a>.
             </p>
             <div className="productdisplay-right-sizes">
@@ -281,7 +371,6 @@ export const ProductDisplay = (props) => {
         </div>
       </div>
 
-      {/* 👇 Fullscreen slideshow hooked up here */}
       <ImageSlideshow
         images={product.images}
         startIndex={slideshowIndex}
