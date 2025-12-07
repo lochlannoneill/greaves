@@ -50,24 +50,49 @@ export const Item = (props) => {
   // 👇 stagger delay based on index (80ms per card)
   const rawDelay = (props.index ?? 0) * 80;
   const staggerDelay = isVisible
-    ? `${Math.min(rawDelay, 300)}ms`  // never more than 300ms
+    ? `${Math.min(rawDelay, 300)}ms` // never more than 300ms
     : "0ms";
-    
+
+  const favourite = isFavorite(props.id);
+  const inCart = isInCart(props.id);
+  const cartCount = countInCart(props.id);
+
   return (
     <div
       ref={ref}
       className={`item ${isVisible ? "item--visible" : ""}`}
       style={{ transitionDelay: staggerDelay }}
     >
+      {(favourite || inCart) && (
+        <div className="item-status-floating">
+          {favourite && (
+            <div className="item-favourite-container">
+              <FontAwesomeIcon
+                className={`item-favourite ${favourite ? "isFavorite" : ""}`}
+                icon={faHeart_solid}
+              />
+            </div>
+          )}
+
+          {inCart && (
+            <div className="item-cart-container">
+              <FontAwesomeIcon
+                className={`item-cart ${inCart ? "isInCart" : ""}`}
+                icon={faCartShopping_solid}
+              />
+              {cartCount > 1 && (
+                <span className="item-cart-count">{cartCount}</span>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       <Link to={`/products/${props.id}`} onClick={() => window.scrollTo(0, 0)}>
         <div className="item-image-container">
           {/* Only render the image when visible */}
           {isVisible && (
-            <img
-              className="item-image"
-              src={hoverImage}
-              alt={props.title}
-            />
+            <img className="item-image" src={hoverImage} alt={props.title} />
           )}
 
           {/* Overlay that appears on hover */}
@@ -82,35 +107,35 @@ export const Item = (props) => {
             <div className="item-image-list-wrapper">
               <div className="item-image-list">
                 {props.images.slice(0, 3).map((img, index) => {
-                const isActive = hoverImage === img;
+                  const isActive = hoverImage === img;
 
-                return (
-                  <img
-                    key={index}
-                    src={img}
-                    alt=""
-                    className={`item-thumb ${isActive ? "active" : ""}`}
-                    onMouseEnter={() => setHoverImage(img)}
-                  />
-                );
-              })}
+                  return (
+                    <img
+                      key={index}
+                      src={img}
+                      alt=""
+                      className={`item-thumb ${isActive ? "active" : ""}`}
+                      onMouseEnter={() => setHoverImage(img)}
+                    />
+                  );
+                })}
 
                 {props.images.length > 3 && (
-                <div
-                      className="item-images-expand"
-                      onMouseEnter={() => setHoverImage(props.images[3])}
-                    >
-                      <span className="item-images-expand-icon">
-                        +{props.images.length - 3}
-                      </span>
-                      <img
-                        src={props.images[3]}
-                        alt=""
-                        className={`item-thumb item-thumb-expand ${
-                          hoverImage === props.images[3] ? "active" : ""
-                        }`}
-                      />
-                    </div>
+                  <div
+                    className="item-images-expand"
+                    onMouseEnter={() => setHoverImage(props.images[3])}
+                  >
+                    <span className="item-images-expand-icon">
+                      +{props.images.length - 3}
+                    </span>
+                    <img
+                      src={props.images[3]}
+                      alt=""
+                      className={`item-thumb item-thumb-expand ${
+                        hoverImage === props.images[3] ? "active" : ""
+                      }`}
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -129,46 +154,49 @@ export const Item = (props) => {
           )}
         </div>
 
-        <div className="item-description">
-          <p className="item-description-title">
-            {truncateTitle(props.title)}
-          </p>
+        <div className="item-content">
+          <div className="item-description">
+            <p className="item-description-title">
+              {truncateTitle(props.title)}
+            </p>
 
-          {reviewCount > 0 && (
-            <div className="item-description-reviews">
-              <span className="item-description-reviews-stars">
-                {[...Array(Math.floor(reviewAverageRating))].map(
-                  (_, index) => (
+            {reviewCount > 0 && (
+              <div className="item-description-reviews">
+                <span className="item-description-reviews-stars">
+                  {[...Array(Math.floor(reviewAverageRating))].map(
+                    (_, index) => (
+                      <FontAwesomeIcon
+                        key={index}
+                        className="item-description-reviews-star-solid"
+                        icon={faStar_solid}
+                      />
+                    )
+                  )}
+                  {reviewAverageRating % 1 !== 0 && (
+                    <FontAwesomeIcon
+                      className="item-description-reviews-star-half"
+                      icon={faStar_half}
+                    />
+                  )}
+                  {[
+                    ...Array(Math.max(0, 5 - Math.ceil(reviewAverageRating))),
+                  ].map((_, index) => (
                     <FontAwesomeIcon
                       key={index}
-                      className="item-description-reviews-star-solid"
+                      className="item-description-reviews-star-empty"
                       icon={faStar_solid}
                     />
-                  )
-                )}
-                {reviewAverageRating % 1 !== 0 && (
-                  <FontAwesomeIcon
-                    className="item-description-reviews-star-half"
-                    icon={faStar_half}
-                  />
-                )}
-                {[
-                  ...Array(Math.max(0, 5 - Math.ceil(reviewAverageRating))),
-                ].map((_, index) => (
-                  <FontAwesomeIcon
-                    key={index}
-                    className="item-description-reviews-star-empty"
-                    icon={faStar_solid}
-                  />
-                ))}
-              </span>
-              <p className="item-description-reviews-text">
-                {reviewCount} reviews
-              </p>
-            </div>
-          )}
+                  ))}
+                </span>
+                <p className="item-description-reviews-text">
+                  {reviewCount} reviews
+                </p>
+              </div>
+            )}
+          </div>
 
-          <div className="item-stuff">
+          {/* Bottom-anchored bar (prices only now) */}
+          <div className="item-footer">
             <div className="item-prices">
               <div
                 className={`item-price ${
@@ -182,33 +210,6 @@ export const Item = (props) => {
                   &euro;{props.price_previous}
                 </div>
               )}
-            </div>
-
-            <div className="item-status">
-              {isFavorite(props.id) ? (
-                <FontAwesomeIcon
-                  className={`item-favourite ${
-                    isFavorite(props.id) ? "isFavorite" : ""
-                  }`}
-                  icon={faHeart_solid}
-                />
-              ) : null}
-
-              {isInCart(props.id) ? (
-                <div className="item-cart-container">
-                  <FontAwesomeIcon
-                    className={`item-cart ${
-                      isInCart(props.id) ? "isInCart" : ""
-                    }`}
-                    icon={faCartShopping_solid}
-                  />
-                  {countInCart(props.id) > 1 && (
-                    <span className="item-cart-count">
-                      {countInCart(props.id)}
-                    </span>
-                  )}
-                </div>
-              ) : null}
             </div>
           </div>
         </div>
