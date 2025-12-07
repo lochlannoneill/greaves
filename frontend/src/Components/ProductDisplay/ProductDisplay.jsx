@@ -131,7 +131,7 @@ export const ProductDisplay = (props) => {
                   }`}
                 />
                 <FontAwesomeIcon
-                  icon={faExpand }
+                  icon={faExpand}
                   className="thumbnail-zoom-icon"
                 />
               </div>
@@ -165,7 +165,8 @@ export const ProductDisplay = (props) => {
               onMouseMove={handleMouseMove}
             >
               <img
-                className="productdisplay-main-img"
+                key={selectedImage}
+                className="productdisplay-main-img productdisplay-main-img--fade"
                 src={selectedImage}
                 alt="Main product"
               />
@@ -175,18 +176,18 @@ export const ProductDisplay = (props) => {
               />
 
               {isZoomed && (
-              <div
-                className={`productdisplay-zoom-box ${
-                  isZoomed ? "productdisplay-zoom-box--visible" : ""
-                }`}
-                style={{
-                  top: `${zoomBoxPos.top}px`,
-                  left: `${zoomBoxPos.left}px`,
-                  backgroundImage: `url(${selectedImage})`,
-                  backgroundPosition: `${zoomCoords.x}% ${zoomCoords.y}%`,
-                  backgroundSize: `${zoomBgSize.width}px ${zoomBgSize.height}px`,
-                }}
-              />
+                <div
+                  className={`productdisplay-zoom-box ${
+                    isZoomed ? "productdisplay-zoom-box--visible" : ""
+                  }`}
+                  style={{
+                    top: `${zoomBoxPos.top}px`,
+                    left: `${zoomBoxPos.left}px`,
+                    backgroundImage: `url(${selectedImage})`,
+                    backgroundPosition: `${zoomCoords.x}% ${zoomCoords.y}%`,
+                    backgroundSize: `${zoomBgSize.width}px ${zoomBgSize.height}px`,
+                  }}
+                />
               )}
             </div>
           </div>
