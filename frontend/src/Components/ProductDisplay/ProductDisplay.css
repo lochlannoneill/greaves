@@ -36,7 +36,8 @@
 /* Selected thumbnail (matches main image) */
 .productdisplay-img-list > .active {
   background-color: lightgrey;
-  box-shadow: 0 0 0 2px #667eea; /* subtle border ring */
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid #667eea;
 }
 
 .productdisplay-img-list > .active {
@@ -45,7 +46,8 @@
 
 /* Feedback when the active one is hovered */
 .productdisplay-img-list > .active:hover {
-  box-shadow: 0 0 0 3px #764ba2, 0 6px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid #764ba2;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
   opacity: 0.8;
 }
