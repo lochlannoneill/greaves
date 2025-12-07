@@ -79,32 +79,40 @@ export const Item = (props) => {
                 : null
             }
           >
-            <div className="item-image-list">
-              {props.images.slice(0, 3).map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt=""
-                  className="item-thumb"
-                  onMouseEnter={() => setHoverImage(img)}
-                />
-              ))}
+            <div className="item-image-list-wrapper">
+              <div className="item-image-list">
+                {props.images.slice(0, 3).map((img, index) => {
+                const isActive = hoverImage === img;
 
-              {props.images.length > 3 && (
-                <div
-                  className="item-images-expand"
-                  onMouseEnter={() => setHoverImage(props.images[3])}
-                >
-                  <span className="item-images-expand-icon">
-                    +{props.images.length - 3}
-                  </span>
+                return (
                   <img
-                    src={props.images[3]}
+                    key={index}
+                    src={img}
                     alt=""
-                    className="item-thumb item-thumb-expand"
+                    className={`item-thumb ${isActive ? "active" : ""}`}
+                    onMouseEnter={() => setHoverImage(img)}
                   />
-                </div>
-              )}
+                );
+              })}
+
+                {props.images.length > 3 && (
+                <div
+                      className="item-images-expand"
+                      onMouseEnter={() => setHoverImage(props.images[3])}
+                    >
+                      <span className="item-images-expand-icon">
+                        +{props.images.length - 3}
+                      </span>
+                      <img
+                        src={props.images[3]}
+                        alt=""
+                        className={`item-thumb item-thumb-expand ${
+                          hoverImage === props.images[3] ? "active" : ""
+                        }`}
+                      />
+                    </div>
+                )}
+              </div>
             </div>
           </div>
 

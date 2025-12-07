@@ -68,27 +68,44 @@
   z-index: 5;
 }
 
+@media (max-width: 768px) {
+  .item-hover-overlay {
+    padding: 4px 8px;
+  }
+}
+
 /* Show overlay on hover */
 .item:hover .item-hover-overlay {
   opacity: 1;
   pointer-events: auto;
 }
 
+.item-image-list-wrapper {
+  align-self: center;
+  width: auto;          /* shrink-wrap to content until it hits max-width */
+  max-width: 100%;      /* but never exceed the card */
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 4px 8px;     /* give space so first/last thumbs aren't on the edge */
+}
+
 .item-image-list {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  width: 100%;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start; /* ⬅️ important: no centering here */
+  align-items: center;
 }
 
 .item-thumb,
 .item-thumb-expand {
-  width: 80px;
-  height: 80px;
+  flex: 0 0 auto;
+  width: 4vw;
+  height: 8vh;
   object-fit: cover;
   border-radius: 6px;
-  border: 2px solid white;
+  border: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   transition:
     transform 0.2s ease,
@@ -96,6 +113,13 @@
     border-color 0.2s ease,
     filter 0.2s ease;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .item-thumb,
+  .item-thumb-expand {
+    width: 12vw;
+  }
 }
 
 /* Normal extra-thumb is dimmed */
@@ -106,18 +130,21 @@
 /* Hover state for normal thumbnails */
 .item-thumb:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  border-color: #667eea;
+  box-shadow: 0 0 0 3px #764ba2, 0 6px 12px rgba(0, 0, 0, 0.3);  /* TODO - this is only changing the border color of the last element */
+}
+
+.item-thumb.active,
+.item-thumb-expand.active {
+  box-shadow: 0 0 0 2px #667eea;
+  filter: brightness(1);
 }
 
 /* Hover state for the "+N" thumbnail */
 .item-images-expand:hover .item-thumb-expand {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  border-color: #667eea;
+  box-shadow: 0 0 0 3px #764ba2, 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Optional: slightly darken overlay when hovering the +N block */
 .item-images-expand:hover .item-images-expand-icon {
   text-shadow: 0 0 6px rgba(0,0,0,0.9);
 }
@@ -163,6 +190,13 @@
   font-weight: bold;
   z-index: 6;
 }
+
+@media (max-width: 768px) {
+  .item-reduced{
+    padding: 3vh;
+  }
+}
+
 
 .item-reduced-content {
   font-size: 1.4rem;
