@@ -19,6 +19,12 @@ const truncateTitle = (title) => {
   return title;
 };
 
+// Helper to split price into whole + decimals
+const formatPrice = (price) => {
+  const [whole, decimals] = Number(price).toFixed(2).split(".");
+  return { whole, decimals };
+};
+
 export const Item = (props) => {
   const { isFavorite, isInCart, countInCart, reviews, getReviewInfo } =
     useContext(ShopContext);
@@ -56,6 +62,12 @@ export const Item = (props) => {
   const favourite = isFavorite(props.id);
   const inCart = isInCart(props.id);
   const cartCount = countInCart(props.id);
+
+  // Format prices
+  const currentPrice = formatPrice(props.price);
+  const previousPrice = props.price_previous
+    ? formatPrice(props.price_previous)
+    : null;
 
   return (
     <div
@@ -203,11 +215,20 @@ export const Item = (props) => {
                   props.price_previous ? "reduced" : ""
                 }`}
               >
-                &euro;{props.price}
+                <span className="price-euro">&euro;</span>
+                <span className="price-whole">{currentPrice.whole}</span>
+                <span className="price-decimals">
+                  {currentPrice.decimals}
+                </span>
               </div>
-              {props.price_previous && (
+              {previousPrice && (
                 <div className="item-price-old">
-                  &euro;{props.price_previous}
+                  <span className="price-whole-old">
+                    {previousPrice.whole}
+                  </span>
+                  <span className="price-decimals-old">
+                    {previousPrice.decimals}
+                  </span>
                 </div>
               )}
             </div>

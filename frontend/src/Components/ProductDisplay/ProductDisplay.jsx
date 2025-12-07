@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart as faHeart_solid,
@@ -11,32 +11,41 @@ import { ShopContext } from "../../Context/ShopContext";
 import Modal from "../Modal/Modal";
 import "./ProductDisplay.css";
 
+// Helper to split price into whole + decimals
+const formatPrice = (price) => {
+  const [whole, decimals] = Number(price).toFixed(2).split(".");
+  return { whole, decimals };
+};
+
 export const ProductDisplay = (props) => {
   const { product, reviewAverageRating, reviewCount } = props;
   const { cart, addCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
-  // const percentageReduced = Math.round(
-  //   ((product.price_previous - product.price) / product.price_previous) * 100
-  // );
+
   const totalStock = Object.values(product.stock).reduce(
     (acc, curr) => acc + curr,
     0
   );
 
-  const [selectedImage, setSelectedImage] = useState(product.images[0]); // State to hold the selected image
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   useEffect(() => {
-    setSelectedImage(product.images[0]); // Reset to the first image when product changes
+    setSelectedImage(product.images[0]);
   }, [product]);
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); // Empty dependency array ensures this effect runs only once after mounting
+  }, []);
+
+  // Format prices
+  const currentPrice = formatPrice(product.price);
+  const previousPrice = product.price_previous
+    ? formatPrice(product.price_previous)
+    : null;
 
   return (
     <div className="productdisplay">
-      {showPopup && <Modal message={popupMessage} />}{" "}
-      {/* Render the modal if showPopup is true */}
+      {showPopup && <Modal message={popupMessage} />}
       <div className="productdisplay-left">
         <div className="productdisplay-img-list">
           {product.images.slice(0, 3).map((image, index) => (
@@ -44,8 +53,10 @@ export const ProductDisplay = (props) => {
               key={index}
               src={image}
               alt={`Product thumbnail ${index}`}
-              onMouseEnter={() => setSelectedImage(image)} // Update selected image on hover
-              className={`thumbnail ${selectedImage === image ? "active" : ""}`} // highlight active thumbnail
+              onMouseEnter={() => setSelectedImage(image)}
+              className={`thumbnail ${
+                selectedImage === image ? "active" : ""
+              }`}
             />
           ))}
           {product.images.length > 3 && (
@@ -57,11 +68,10 @@ export const ProductDisplay = (props) => {
             </div>
           )}
         </div>
-        {/* // TODO - This image stays when nagivating to another product */}
         <div className="productdisplay-img">
           <img
             className="productdisplay-main-img"
-            src={selectedImage} // Use the selected image as the main image
+            src={selectedImage}
             alt="Main product"
           />
         </div>
@@ -85,9 +95,6 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-rating">
             {reviewCount > 0 ? (
               <>
-                {/* <p className="productdisplay-right-rating-value">
-                  {reviewAverageRating}
-                </p> */}
                 <span className="productdisplay-right-rating-stars">
                   {[...Array(Math.floor(reviewAverageRating))].map(
                     (_, index) => (
@@ -135,22 +142,24 @@ export const ProductDisplay = (props) => {
           </div>
         </div>
         <div className="productdisplay-right-info">
-          {/* {product.price_previous && (
-            <p className="productdisplay-right-discount">
-              -{percentageReduced}%
-            </p>
-          )} */}
           <div className="productdisplay-right-prices">
             <p
               className={`productdisplay-right-price ${
                 product.price_previous ? "reduced" : ""
               }`}
             >
-              &euro;{product.price}
+              <span className="price-euro">&euro;</span>
+              <span className="price-whole">{currentPrice.whole}</span>
+              <span className="price-decimals">{currentPrice.decimals}</span>
             </p>
-            {product.price_previous && (
+            {previousPrice && (
               <p className="productdisplay-right-price-old">
-                &euro;{product.price_previous}
+                <span className="price-whole-old">
+                  {previousPrice.whole}
+                </span>
+                <span className="price-decimals-old">
+                  {previousPrice.decimals}
+                </span>
               </p>
             )}
           </div>
@@ -163,7 +172,6 @@ export const ProductDisplay = (props) => {
                 : ""
             }`}
           >
-            {/* Display stock information */}
             <p>
               {totalStock === 0
                 ? "Out of stock"
@@ -173,7 +181,6 @@ export const ProductDisplay = (props) => {
             </p>
           </div>
         </div>
-        {/* <hr /> */}
         <div className="productdisplay-tags">
           {product.tags.map((tag, index) => (
             <span key={index} className="productdisplay-tag">
