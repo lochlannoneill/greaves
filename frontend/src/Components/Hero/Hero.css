@@ -11,6 +11,12 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 768px) {
+  .hero {
+    background-size: 200%;
+    background-position: center;
+  }
+}
 
 .hero-left {
   flex: 1;
