@@ -44,18 +44,18 @@
 
 .productdisplay-thumbnail-wrapper .thumbnail.active {
   background-color: lightgrey;
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.125);
   border-color: #764ba2;
 }
 
 .productdisplay-thumbnail-wrapper:hover .thumbnail {
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.125);
 }
 
 .productdisplay-thumbnail-wrapper:hover .thumbnail.active {
   border-color: #667eea;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
   transform: scale(1.05);
   opacity: 0.8;
 }
@@ -76,7 +76,7 @@
 .product-images-expand:hover {
   background-color: grey;
   border: 2px solid #667eea;
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.25);
 }
 
 .product-images-expand:active {
@@ -108,14 +108,14 @@
   width: 24vw;
   height: 28vw;
   object-fit: cover;
-  box-shadow: 0px 20px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 20px 15px rgba(0, 0, 0, 0.125);
   border-radius: 6.25%;
   transition: 0.25s ease-in-out;
 }
 
 .productdisplay-main-img:hover {
   transform: scale(1.05);
-  box-shadow: 0px 20px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 20px 15px rgba(0, 0, 0, 0.25);
 }
 
 .productdisplay-main-zoom-icon {
@@ -447,14 +447,14 @@
 
 .productdisplay-right button:hover {
   background-color: grey;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   transform: scale(1.025);
   transition: 0.25s;
 }
 
 .productdisplay-right button:active {
   background-color: #171717;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
   transform: scale(0.975);
   transition: 0.25s;
 }
