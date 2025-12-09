@@ -83,7 +83,7 @@ export const ProductDisplay = (props) => {
     });
 
     // 2x zoom relative to the main image size
-    const ZOOM_LEVEL = 2;
+    const ZOOM_LEVEL = 3;
     setZoomBgSize({
       width: rect.width * ZOOM_LEVEL,
       height: rect.height * ZOOM_LEVEL,
