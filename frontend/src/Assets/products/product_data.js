@@ -52,7 +52,7 @@ let products = [
     title: "Long Sleeved Knit Sweater",
     images: [p1_i1, p1_i2, p1_i3, p1_i4, p1_i5],
     description:
-      "Stay cozy and stylish during the colder months with this striped knit sweater. Made from soft and warm fabric, it features a timeless striped pattern that adds a touch of sophistication to any outfit.",
+      "Stay warm without sacrificing style in this beautifully crafted striped knit sweater. Designed with ultra-soft, insulating fabric, it offers exceptional comfort throughout the colder months. The classic horizontal stripe pattern provides a timeless, effortlessly chic look that pairs perfectly with jeans, skirts, or layered outfits. Whether you're heading out or lounging at home, this versatile sweater adds a refined touch to your winter wardrobe.",
     tags: ["new", "popular", "modern", "elegant", "knit", "cozy"],
     category: "women",
     rating: 4.0,

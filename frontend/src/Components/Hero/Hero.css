@@ -5,9 +5,17 @@
   background-image: url("../../Assets/hero_background.png");
   background-position: center;
   background-size: cover;
-  background-attachment: fixed;
   backdrop-filter: blur(5px);
   display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    background-size: 200%;
+    background-position: center;
+  }
 }
 
 .hero-left {

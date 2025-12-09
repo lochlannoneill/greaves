@@ -33,7 +33,7 @@ let reviews = [
     summary: "93% Cotton, fits nicely",
     date: "2024-03-26",
     time: "13:00:00",
-    verified: true,
+    verified: false,
     images: [p1_review3_1, p1_review3_2, p1_review3_3],
     description: "Casual fit and style, 93% cotton and 7% spandex. (Not to tumble dry).Size fitted well on family members wearing L. Simple but nice looking long sleeve V Top.",
     helpful: []
@@ -79,7 +79,7 @@ let reviews = [
     verified: false,
     images: [],
     description: "Loved the design but wanted it to come to the top of my thighs. I'm 5'4 and it barely reaches my hips. I'm not sure I want to go larger as it fits well.",
-    helpful: []
+    helpful: ["user1_id", "user2_id", "user3_id"]
   },
 ];
 

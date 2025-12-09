@@ -5,245 +5,400 @@ import {
   faStar as faStar_solid,
   faStarHalfStroke as faStar_half,
   faCartShopping as faCartShopping_solid,
+  faExpand,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeart_regular } from "@fortawesome/free-regular-svg-icons";
 import { ShopContext } from "../../Context/ShopContext";
 import Modal from "../Modal/Modal";
+import ImageSlideshow from "../ImageSlideshow/ImageSlideshow";
 import "./ProductDisplay.css";
+
+// Helper to split price into whole + decimals
+const formatPrice = (price) => {
+  const [whole, decimals] = Number(price).toFixed(2).split(".");
+  return { whole, decimals };
+};
 
 export const ProductDisplay = (props) => {
   const { product, reviewAverageRating, reviewCount } = props;
-  const { cart, addCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
+  const { cart, addCart, removeCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
-  // const percentageReduced = Math.round(
-  //   ((product.price_previous - product.price) / product.price_previous) * 100
-  // );
+
   const totalStock = Object.values(product.stock).reduce(
     (acc, curr) => acc + curr,
     0
   );
 
-  const [selectedImage, setSelectedImage] = useState(product.images[0]); // State to hold the selected image
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
+
+  const [slideshowOpen, setSlideshowOpen] = useState(false);
+  const [slideshowIndex, setSlideshowIndex] = useState(0);
+
+  // zoom state
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomCoords, setZoomCoords] = useState({ x: 50, y: 50 });
+  const [zoomBoxPos, setZoomBoxPos] = useState({ top: 0, left: 0 });
+  const [zoomBgSize, setZoomBgSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    setSelectedImage(product.images[0]); // Reset to the first image when product changes
+    setSelectedImage(product.images[0]);
   }, [product]);
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); // Empty dependency array ensures this effect runs only once after mounting
+  }, []);
+
+  // Format prices
+  const currentPrice = formatPrice(product.price);
+  const previousPrice = product.price_previous
+    ? formatPrice(product.price_previous)
+    : null;
+
+  // Helper: open slideshow at a given image index
+  const openSlideshowAt = (index) => {
+    if (!product.images || product.images.length === 0) return;
+    setSlideshowIndex(index);
+    setSlideshowOpen(true);
+  };
+
+  // handlers for zoom box
+  const handleMouseEnter = () => setIsZoomed(true);
+  const handleMouseLeave = () => setIsZoomed(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    // cursor position relative to the image
+    const relX = e.clientX - rect.left;
+    const relY = e.clientY - rect.top;
+
+    // percentage for background position
+    const xPercent = (relX / rect.width) * 100;
+    const yPercent = (relY / rect.height) * 100;
+
+    setZoomCoords({
+      x: Math.min(100, Math.max(0, xPercent)),
+      y: Math.min(100, Math.max(0, yPercent)),
+    });
+
+    // 2x zoom relative to the main image size
+    const ZOOM_LEVEL = 3;
+    setZoomBgSize({
+      width: rect.width * ZOOM_LEVEL,
+      height: rect.height * ZOOM_LEVEL,
+    });
+
+    // pixel position for zoom box (follow cursor with a small offset)
+    const offset = 20; // distance from cursor
+    const boxWidth = 180; // approximate, matches your CSS-ish
+    const boxHeight = 220;
+
+    let left = relX + offset;
+    let top = relY + offset;
+
+    // basic clamping so it doesn’t fly totally off the image
+    if (left + boxWidth > rect.width) {
+      left = rect.width - boxWidth;
+    }
+    if (top + boxHeight > rect.height) {
+      top = rect.height - boxHeight;
+    }
+    if (left < 0) left = 0;
+    if (top < 0) top = 0;
+
+    setZoomBoxPos({ top, left });
+  };
 
   return (
-    <div className="productdisplay">
-      {showPopup && <Modal message={popupMessage} />}{" "}
-      {/* Render the modal if showPopup is true */}
-      <div className="productdisplay-left">
-        <div className="productdisplay-img-list">
-          {product.images.slice(0, 3).map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Product thumbnail ${index}`}
-              onMouseEnter={() => setSelectedImage(image)} // Update selected image on hover
-              className={`thumbnail ${selectedImage === image ? "active" : ""}`} // highlight active thumbnail
-            />
-          ))}
-          {product.images.length > 3 && (
-            <div className="product-images-expand">
-              <span className="product-images-expand-icon">
-                +{product.images.length - 3}
-              </span>
-              <img src={product.images[3]} alt={`product-3`} />
-            </div>
-          )}
-        </div>
-        {/* // TODO - This image stays when nagivating to another product */}
-        <div className="productdisplay-img">
-          <img
-            className="productdisplay-main-img"
-            src={selectedImage} // Use the selected image as the main image
-            alt="Main product"
-          />
-        </div>
-      </div>
-      <div className="productdisplay-right">
-        <div className="productdisplay-right-heading">
-          <h1 className="productdisplay-right-heading-title">
-            {product.title}
-            {isFavorite(product.id) ? (
-              <span>
-                &nbsp;
-                <FontAwesomeIcon
-                  className={`item-favourite ${
-                    isFavorite(product.id) ? "isFavorite" : ""
+    <>
+      <div className="productdisplay">
+        {showPopup && <Modal message={popupMessage} />}
+        <div className="productdisplay-left">
+          <div className="productdisplay-img-list">
+            {product.images.slice(0, 3).map((image, index) => (
+              <div
+                key={index}
+                className="productdisplay-thumbnail-wrapper"
+                onMouseEnter={() => setSelectedImage(image)}
+                onClick={() => openSlideshowAt(index)}
+              >
+                <img
+                  src={image}
+                  alt={`Product thumbnail ${index}`}
+                  className={`thumbnail ${
+                    selectedImage === image ? "active" : ""
                   }`}
-                  icon={faHeart_solid}
                 />
-              </span>
-            ) : null}
-          </h1>
-          <div className="productdisplay-right-rating">
-            {reviewCount > 0 ? (
-              <>
-                {/* <p className="productdisplay-right-rating-value">
-                  {reviewAverageRating}
-                </p> */}
-                <span className="productdisplay-right-rating-stars">
-                  {[...Array(Math.floor(reviewAverageRating))].map(
-                    (_, index) => (
+                <FontAwesomeIcon
+                  icon={faExpand}
+                  className="thumbnail-zoom-icon"
+                />
+              </div>
+            ))}
+
+            {product.images.length > 3 && (
+              <div
+                className="product-images-expand"
+                onClick={() => openSlideshowAt(3)} // start at 4th image
+              >
+                <span className="product-images-expand-icon">
+                  +{product.images.length - 3}
+                </span>
+
+                <img src={product.images[3]} alt={`product-3`} />
+              </div>
+            )}
+          </div>
+
+          <div className="productdisplay-img">
+            <div
+              className="productdisplay-main-wrapper"
+              onClick={() => {
+                const idx = product.images.findIndex(
+                  (img) => img === selectedImage
+                );
+                openSlideshowAt(idx === -1 ? 0 : idx);
+              }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onMouseMove={handleMouseMove}
+            >
+              <img
+                key={selectedImage}
+                className="productdisplay-main-img productdisplay-main-img--fade"
+                src={selectedImage}
+                alt="Main product"
+              />
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="productdisplay-main-zoom-icon"
+              />
+
+              {isZoomed && (
+                <div
+                  className={`productdisplay-zoom-box ${
+                    isZoomed ? "productdisplay-zoom-box--visible" : ""
+                  }`}
+                  style={{
+                    top: `${zoomBoxPos.top}px`,
+                    left: `${zoomBoxPos.left}px`,
+                    backgroundImage: `url(${selectedImage})`,
+                    backgroundPosition: `${zoomCoords.x}% ${zoomCoords.y}%`,
+                    backgroundSize: `${zoomBgSize.width}px ${zoomBgSize.height}px`,
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="productdisplay-right">
+          <div className="productdisplay-right-heading">
+            <h1 className="productdisplay-right-heading-title">
+              {product.title}
+              {isFavorite(product.id) ? (
+                <span>
+                  &nbsp;
+                  <FontAwesomeIcon
+                    className={`item-favourite ${
+                      isFavorite(product.id) ? "isFavorite" : ""
+                    }`}
+                    icon={faHeart_solid}
+                  />
+                </span>
+              ) : null}
+            </h1>
+            <div className="productdisplay-right-rating">
+              {reviewCount > 0 ? (
+                <>
+                  <span className="productdisplay-right-rating-stars">
+                    {[...Array(Math.floor(reviewAverageRating))].map(
+                      (_, index) => (
+                        <FontAwesomeIcon
+                          key={index}
+                          className="productdisplay-right-rating-full"
+                          icon={faStar_solid}
+                        />
+                      )
+                    )}
+                    {reviewAverageRating % 1 !== 0 && (
+                      <FontAwesomeIcon
+                        className="productdisplay-right-rating-half"
+                        icon={faStar_half}
+                      />
+                    )}
+                    {[
+                      ...Array(
+                        Math.max(0, 5 - Math.ceil(reviewAverageRating))
+                      ),
+                    ].map((_, index) => (
                       <FontAwesomeIcon
                         key={index}
-                        className="productdisplay-right-rating-full"
+                        className="productdisplay-right-rating-empty"
                         icon={faStar_solid}
                       />
-                    )
-                  )}
-                  {reviewAverageRating % 1 !== 0 && (
-                    <FontAwesomeIcon
-                      className="productdisplay-right-rating-half"
-                      icon={faStar_half}
-                    />
-                  )}
-                  {[
-                    ...Array(Math.max(0, 5 - Math.ceil(reviewAverageRating))),
-                  ].map((_, index) => (
-                    <FontAwesomeIcon
-                      key={index}
-                      className="productdisplay-right-rating-empty"
-                      icon={faStar_solid}
-                    />
-                  ))}
-                </span>
-                <a
-                  className="productdisplay-right-rating-reviews"
-                  href="#reviews"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById("reviews").scrollIntoView({
-                      behavior: "smooth",
-                    });
-                  }}
-                >
-                  {reviewCount} reviews
-                </a>
-              </>
-            ) : (
-              <p className="productdisplay-right-rating-default">
-                No reviews yet
-              </p>
-            )}
+                    ))}
+                  </span>
+                  <a
+                    className="productdisplay-right-rating-reviews"
+                    href="#reviews"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById("reviews").scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    {reviewCount} reviews
+                  </a>
+                </>
+              ) : (
+                <p className="productdisplay-right-rating-default">
+                  No reviews yet
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="productdisplay-right-info">
-          {/* {product.price_previous && (
-            <p className="productdisplay-right-discount">
-              -{percentageReduced}%
-            </p>
-          )} */}
-          <div className="productdisplay-right-prices">
-            <p
-              className={`productdisplay-right-price ${
-                product.price_previous ? "reduced" : ""
+          <div className="productdisplay-right-info">
+            <div className="productdisplay-right-prices">
+              <p
+                className={`productdisplay-right-price ${
+                  product.price_previous ? "reduced" : ""
+                }`}
+              >
+                <span className="price-euro">&euro;</span>
+                <span className="price-whole">{currentPrice.whole}</span>
+                <span className="price-decimals">{currentPrice.decimals}</span>
+              </p>
+              {previousPrice && (
+                <p className="productdisplay-right-price-old">
+                  <span className="price-whole-old">{previousPrice.whole}</span>
+                  <span className="price-decimals-old">
+                    {previousPrice.decimals}
+                  </span>
+                </p>
+              )}
+            </div>
+            <div
+              className={`productdisplay-right-stock ${
+                totalStock === 0
+                  ? "out-of-stock"
+                  : totalStock < 5
+                  ? "low-stock"
+                  : ""
               }`}
             >
-              &euro;{product.price}
-            </p>
-            {product.price_previous && (
-              <p className="productdisplay-right-price-old">
-                &euro;{product.price_previous}
+              <p>
+                {totalStock === 0
+                  ? "Out of stock"
+                  : totalStock < 5
+                  ? `Only ${totalStock} left in stock!`
+                  : `${totalStock} left in stock`}
               </p>
-            )}
+            </div>
           </div>
-          <div
-            className={`productdisplay-right-stock ${
-              totalStock === 0
-                ? "out-of-stock"
-                : totalStock < 5
-                ? "low-stock"
-                : ""
-            }`}
-          >
-            {/* Display stock information */}
+          <div className="productdisplay-right-tags-container">
+            <div className="productdisplay-tags">
+              {product.tags.map((tag, index) => (
+                <span key={index} className="productdisplay-tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="productdisplay-right-about">
+            <h3>About this item</h3>
+            <p>{product.description}</p>
+          </div>
+          <div className="productdisplay-right-color">
+            <h3>Select Colour</h3>
+            <div className="productdisplay-right-colors">
+              <div>White</div>
+              <div>Black</div>
+              <div>Blue</div>
+              <div>Green</div>
+              <div>Grey</div>
+              <div>Red</div>
+              <div>Yellow</div>
+              <div>Purple</div>
+            </div>
+          </div>
+          <div className="productdisplay-right-size">
+            <h3>Select Size</h3>
             <p>
-              {totalStock === 0
-                ? "Out of stock"
-                : totalStock < 5
-                ? `Only ${totalStock} left in stock!`
-                : `${totalStock} left in stock`}
+              Still unsure what size to get? Find your{" "}
+              <a href="/">recommended size</a> or check out our{" "}
+              <a href="/">size guide</a>.
             </p>
+            <div className="productdisplay-right-sizes">
+              <div className="productdisplay-right-size-element">S</div>
+              <div className="productdisplay-right-size-element">M</div>
+              <div className="productdisplay-right-size-element">L</div>
+              <div className="productdisplay-right-size-element">XL</div>
+              <div className="productdisplay-right-size-element">XXL</div>
+            </div>
           </div>
-        </div>
-        {/* <hr /> */}
-        <div className="productdisplay-tags">
-          {product.tags.map((tag, index) => (
-            <span key={index} className="productdisplay-tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="productdisplay-right-about">
-          <h3>About this item</h3>
-          <p>{product.description}</p>
-        </div>
-        <div className="productdisplay-right-color">
-          <h3>Select Colour</h3>
-          <div className="productdisplay-right-colors">
-            <div>White</div>
-            <div>Black</div>
-            <div>Blue</div>
-            <div>Green</div>
-            <div>Grey</div>
-            <div>Red</div>
-            <div>Yellow</div>
-            <div>Purple</div>
+          <div className="productdisplay-right-category-buttons">
+            <button
+              onClick={() => {
+                toggleFavorite(product.id);
+              }}
+              className={`productdisplay-right-category-buttons-favourite ${
+                isFavorite(product.id) ? "in-favorites" : "not-in-favorites"
+              }`}
+            >
+              {isFavorite(product.id) ? (
+                <>
+                  <span>Remove from favourites</span>
+                  <FontAwesomeIcon className="productdisplay-right-category-buttons-icon" icon={faHeart_solid} />
+                </>
+              ) : (
+                <>
+                  <span>Add to favourites</span>
+                  <FontAwesomeIcon className="productdisplay-right-category-buttons-icon" icon={faHeart_regular} />
+                </>
+              )}
+            </button>
+            <button
+              onClick={() => {
+                addCart(product.id);
+              }}
+              className="productdisplay-right-category-buttons-cart"
+            >
+              <span>Add to Cart</span>
+              <FontAwesomeIcon icon={faCartShopping_solid} />
+            </button>
           </div>
-        </div>
-        <div className="productdisplay-right-size">
-          <h3>Select Size</h3>
-          <p>
-            Still unsure what size to get?{" "}
-            Find your <a href="/"> recommended size</a> or check out our{" "}
-            <a href="/">size guide</a>.
-          </p>
-          <div className="productdisplay-right-sizes">
-            <div>S</div>
-            <div>M</div>
-            <div>L</div>
-            <div>XL</div>
-            <div>XXL</div>
-          </div>
-        </div>
-        <div className="productdisplay-right-category-buttons">
-          <button
-            onClick={() => {
-              toggleFavorite(product.id);
-            }}
-            className={`productdisplay-right-category-buttons-favourite ${
-              isFavorite(product.id) ? "in-favorites" : "not-in-favorites"
-            }`}
-          >
-            {isFavorite(product.id) ? (
-              <FontAwesomeIcon icon={faHeart_solid} />
-            ) : (
-              <FontAwesomeIcon icon={faHeart_regular} />
+            {cart[product.id] > 0 && (
+              <div className="productdisplay-right-cart-status">
+                <p className="productdisplay-right-already">
+                  {cart[product.id] === 1
+                    ? "This item is"
+                    : `${cart[product.id]} `}{" "}
+                  already in the cart
+                </p>
+
+              <span
+                  className="productdisplay-right-remove"
+                  onClick={() => removeCart(product.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && removeCart(product.id)}
+                >
+                  Remove 1 from cart
+                </span>
+              </div>
             )}
-          </button>
-          <button
-            onClick={() => {
-              addCart(product.id);
-            }}
-            className="productdisplay-right-category-buttons-cart"
-          >
-            Add to Cart <FontAwesomeIcon icon={faCartShopping_solid} />
-          </button>
         </div>
-        {cart[product.id] > 0 && (
-          <p className="productdisplay-right-already">
-            {cart[product.id] === 1 ? "This item is" : `${cart[product.id]} x `}{" "}
-            already in the cart
-          </p>
-        )}
       </div>
-    </div>
+
+      <ImageSlideshow
+        images={product.images}
+        startIndex={slideshowIndex}
+        isOpen={slideshowOpen}
+        onClose={() => setSlideshowOpen(false)}
+      />
+    </>
   );
 };
