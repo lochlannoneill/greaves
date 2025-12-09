@@ -298,12 +298,14 @@ export const ProductDisplay = (props) => {
               </p>
             </div>
           </div>
-          <div className="productdisplay-tags">
-            {product.tags.map((tag, index) => (
-              <span key={index} className="productdisplay-tag">
-                {tag}
-              </span>
-            ))}
+          <div className="productdisplay-right-tags-container">
+            <div className="productdisplay-tags">
+              {product.tags.map((tag, index) => (
+                <span key={index} className="productdisplay-tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
           <div className="productdisplay-right-about">
             <h3>About this item</h3>
@@ -330,11 +332,11 @@ export const ProductDisplay = (props) => {
               <a href="/">size guide</a>.
             </p>
             <div className="productdisplay-right-sizes">
-              <div>S</div>
-              <div>M</div>
-              <div>L</div>
-              <div>XL</div>
-              <div>XXL</div>
+              <div className="productdisplay-right-size-element">S</div>
+              <div className="productdisplay-right-size-element">M</div>
+              <div className="productdisplay-right-size-element">L</div>
+              <div className="productdisplay-right-size-element">XL</div>
+              <div className="productdisplay-right-size-element">XXL</div>
             </div>
           </div>
           <div className="productdisplay-right-category-buttons">
@@ -347,9 +349,15 @@ export const ProductDisplay = (props) => {
               }`}
             >
               {isFavorite(product.id) ? (
-                <FontAwesomeIcon icon={faHeart_solid} />
+                <>
+                  <span>Remove from favourites</span>
+                  <FontAwesomeIcon className="productdisplay-right-category-buttons-icon" icon={faHeart_solid} />
+                </>
               ) : (
-                <FontAwesomeIcon icon={faHeart_regular} />
+                <>
+                  <span>Add to favourites</span>
+                  <FontAwesomeIcon className="productdisplay-right-category-buttons-icon" icon={faHeart_regular} />
+                </>
               )}
             </button>
             <button
@@ -358,7 +366,8 @@ export const ProductDisplay = (props) => {
               }}
               className="productdisplay-right-category-buttons-cart"
             >
-              Add to Cart <FontAwesomeIcon icon={faCartShopping_solid} />
+              <span>Add to Cart</span>
+              <FontAwesomeIcon icon={faCartShopping_solid} />
             </button>
           </div>
           {cart[product.id] > 0 && (

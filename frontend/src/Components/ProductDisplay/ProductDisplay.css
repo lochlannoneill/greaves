@@ -139,6 +139,18 @@
   flex-direction: column;
 }
 
+.productdisplay-right > * {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .productdisplay-right {
+    margin: 0;
+  }
+}
+
 .productdisplay-right h1 {
   color: #171717;
   font-size: 2rem;
@@ -316,7 +328,7 @@
 .productdisplay-right-colors {
   display: flex;
   flex-wrap: wrap;
-  gap: 1vw;
+  gap: 16px;
 }
 
 .productdisplay-right-colors div {
@@ -360,7 +372,7 @@
 
 .productdisplay-right-sizes {
   display: flex;
-  gap: 1vw;
+  gap: 12px;
 }
 
 .productdisplay-right-sizes div {
@@ -394,6 +406,9 @@
 }
 
 .productdisplay-right button {
+  display: flex;
+  flex-direction: row;
+  gap: 8px !important;
   padding: 2vh 2vw;
   min-height: 32px;
   border: none;
