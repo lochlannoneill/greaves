@@ -328,14 +328,17 @@
 .productdisplay-right-colors {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
+  max-width: 48vw;
 }
 
 .productdisplay-right-colors div {
+  flex: 1 1 0;
+  width: 100%; 
   padding: 0.5vw 1vw;
   border: none;
   border-radius: 5px;
-  min-width: 32px;
   background-color: #ebebeb;
   color: #171717;
   text-align: center;
@@ -373,9 +376,13 @@
 .productdisplay-right-sizes {
   display: flex;
   gap: 12px;
+  width: 100%;
+  max-width: 48vw;
 }
 
 .productdisplay-right-sizes div {
+  flex: 1 1 0;
+  width: 100%;
   padding: 0.5vw 1vw;
   border: none;
   border-radius: 5px;
@@ -401,8 +408,22 @@
 
 .productdisplay-right-category-buttons {
   display: flex;
-  gap: 1vw;
+  flex-direction: row;
   padding-top: 2vh;
+  width: 100%;
+  gap: 1rem;
+}
+
+.productdisplay-right-remove {
+  cursor: pointer;
+  font-weight: 800;
+  color: grey;
+  text-decoration: underline;
+}
+
+.productdisplay-right-remove:hover {
+  color: #667eea;
+  transition: color 0.25s;
 }
 
 .productdisplay-right button {
@@ -420,6 +441,8 @@
   justify-content: center;
   cursor: pointer;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  flex: 1 1 0;
+  width: 100%;
 }
 
 .productdisplay-right button:hover {

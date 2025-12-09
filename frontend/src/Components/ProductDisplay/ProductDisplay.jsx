@@ -22,7 +22,7 @@ const formatPrice = (price) => {
 
 export const ProductDisplay = (props) => {
   const { product, reviewAverageRating, reviewCount } = props;
-  const { cart, addCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
+  const { cart, addCart, removeCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
 
   const totalStock = Object.values(product.stock).reduce(
@@ -370,14 +370,26 @@ export const ProductDisplay = (props) => {
               <FontAwesomeIcon icon={faCartShopping_solid} />
             </button>
           </div>
-          {cart[product.id] > 0 && (
-            <p className="productdisplay-right-already">
-              {cart[product.id] === 1
-                ? "This item is"
-                : `${cart[product.id]} x `}{" "}
-              already in the cart
-            </p>
-          )}
+            {cart[product.id] > 0 && (
+              <div className="productdisplay-right-cart-status">
+                <p className="productdisplay-right-already">
+                  {cart[product.id] === 1
+                    ? "This item is"
+                    : `${cart[product.id]} `}{" "}
+                  already in the cart
+                </p>
+
+              <span
+                  className="productdisplay-right-remove"
+                  onClick={() => removeCart(product.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && removeCart(product.id)}
+                >
+                  Remove 1 from cart
+                </span>
+              </div>
+            )}
         </div>
       </div>
 
