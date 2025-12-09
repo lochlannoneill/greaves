@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import "./ImageSlideshow.css";
 
 export default function ImageSlideshow({
@@ -21,37 +21,35 @@ export default function ImageSlideshow({
     setIndex(startIndex);
   }, [startIndex]);
 
+  // --- FIX: Memoise goPrev and goNext ---
+  const goPrev = useCallback(() => {
+    setIndex((i) => (i - 1 + images.length) % images.length);
+    setDragX(0);
+    setIsDragging(false);
+  }, [images.length]);
+
+  const goNext = useCallback(() => {
+    setIndex((i) => (i + 1) % images.length);
+    setDragX(0);
+    setIsDragging(false);
+  }, [images.length]);
+  // ---------------------------------------
+
   // Keyboard support (Esc, ←, →)
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKey = (e) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") {
-        goNext();
-      }
-      if (e.key === "ArrowLeft") {
-        goPrev();
-      }
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
     };
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [isOpen, images.length, onClose]);
+  }, [isOpen, onClose, goNext, goPrev]); // FIXED deps
 
-  const goPrev = () => {
-    setIndex((i) => (i - 1 + images.length) % images.length);
-    setDragX(0);
-    setIsDragging(false);
-  };
-
-  const goNext = () => {
-    setIndex((i) => (i + 1) % images.length);
-    setDragX(0);
-    setIsDragging(false);
-  };
-
-  // Touch handlers for swipe with realistic animation
+  // Touch handlers for swipe
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
     setIsDragging(true);
@@ -75,15 +73,8 @@ export default function ImageSlideshow({
     const deltaX = dragX;
 
     if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
-      if (deltaX < 0) {
-        // dragged left → next
-        goNext();
-      } else {
-        // dragged right → prev
-        goPrev();
-      }
+      deltaX < 0 ? goNext() : goPrev();
     } else {
-      // not enough swipe → snap back
       setDragX(0);
     }
 
@@ -93,7 +84,6 @@ export default function ImageSlideshow({
 
   if (!isOpen) return null;
 
-  // Base offset to center the current slide, then add drag offset in px
   const trackTransform = `translateX(calc(${-index * 100}% + ${dragX}px))`;
 
   return (
@@ -113,18 +103,13 @@ export default function ImageSlideshow({
             &#10094;
           </button>
 
-          {/* Track that slides all images horizontally */}
           <div
             className={`slideshow-track ${isDragging ? "dragging" : ""}`}
             style={{ transform: trackTransform }}
           >
             {images.map((src, i) => (
               <div className="slideshow-slide" key={i}>
-                <img
-                  src={src}
-                  className="slideshow-main-img"
-                  alt={`Slide ${i + 1}`}
-                />
+                <img src={src} className="slideshow-main-img" alt={`Slide ${i + 1}`} />
               </div>
             ))}
           </div>
