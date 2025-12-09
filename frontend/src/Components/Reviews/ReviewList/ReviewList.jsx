@@ -52,7 +52,7 @@ export const ReviewList = ({ reviews }) => {
     <div className="reviewlist">
       <div className="reviewlist-header">
         <div className="reviewlist-title">
-          <h3>Reviews From Ireland</h3>
+          <h3>Top Reviews From Ireland</h3>
         </div>
         <div className="reviewlist-sort">
           <div className="reviewlist-sort-filter">

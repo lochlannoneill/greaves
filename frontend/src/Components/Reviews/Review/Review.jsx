@@ -56,7 +56,7 @@ const Review = ({ review }) => {
               />
             ))}
           </span>
-          <p className="review-info-rating-number">{review.rating}</p>
+          {/* <p className="review-info-rating-number">{review.rating}</p> */}
         </div>
         <div className="review-info-summary">
           <p>{review.summary}</p>
