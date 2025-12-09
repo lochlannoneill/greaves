@@ -20,11 +20,11 @@ export const DividerWomen = () => {
             Shop Now
           </Link>
         </div>
-        <div className="divider-women-image">
+        <Link to="/women" className="divider-women-image">
           <div className="model-mask">
             <img src={image_model} alt="Women's fashion model" />
           </div>
-        </div>
+        </Link>
       {/* shapes ... */}
       <div className="shape s1"></div>
       <div className="shape s2"></div>

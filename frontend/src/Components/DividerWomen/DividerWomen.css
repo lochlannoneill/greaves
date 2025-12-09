@@ -55,21 +55,24 @@
 }
 
 .divider-women-button {
-  display: inline-block;
-  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
   padding: 12px 24px;
   background: #ff6fa8;
   color: white;
+  height: 72px;
   border-radius: 40px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .divider-women-button:hover {
   background: #ff4f92;
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
 }
 
@@ -79,6 +82,11 @@
   justify-content: center;
   position: relative;
   z-index: 2; /* model image above shapes */
+}
+
+.divider-women-image:hover img {
+  transform: scale(1.03);
+  transition: 0.3s ease;
 }
 
 .divider-women-image img {

@@ -13,11 +13,11 @@ export const DividerMen = () => {
       className={`divider-men ${isVisible ? "divider-men--visible" : ""}`}
     >
       <div className="divider-men-info">
-        <div className="divider-men-image">
+        <Link to="/men" className="divider-men-image">
           <div className="model-mask">
             <img src={image_model} alt="Men's fashion model" />
           </div>
-        </div>
+        </Link>
         <div className="divider-men-content">
           <h2>Explore Trending Collections</h2>
           <p>Find the latest styles in men’s fashion — modern, bold, and comfortable.</p>
