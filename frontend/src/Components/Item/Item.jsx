@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,7 +31,13 @@ export const Item = (props) => {
 
   const [reviewCount, setReviewCount] = useState(0);
   const [reviewAverageRating, setReviewAverageRating] = useState(0);
-  const [hoverImage, setHoverImage] = useState(props.images[0]);
+  const [hoverImage, setHoverImage] = useState(
+    props.images && props.images.length > 0 ? props.images[0] : ""
+  );
+  const [isImageHovered, setIsImageHovered] = useState(false);
+
+  // ref for the horizontal thumbnail scroller
+  const listWrapperRef = useRef(null);
 
   const { ref, isVisible } = useInView({ threshold: 0.1 });
 
@@ -49,15 +55,67 @@ export const Item = (props) => {
     }
   }, [props.images]);
 
+  // Auto-rotate images while hovered
+  useEffect(() => {
+    if (!isImageHovered || !props.images || props.images.length === 0) return;
+
+    // Limit auto-scroll to the "expanded" threshold (index 3)
+    const maxIndex = Math.min(props.images.length - 1, 3);
+    if (maxIndex <= 0) return; // nothing to rotate
+
+    const interval = setInterval(() => {
+      setHoverImage((current) => {
+        const idx = props.images.indexOf(current);
+
+        // If current is outside the allowed range or not found, reset to 0
+        const safeIdx = idx < 0 || idx > maxIndex ? 0 : idx;
+
+        const nextIndex = safeIdx === maxIndex ? 0 : safeIdx + 1;
+        return props.images[nextIndex];
+      });
+    }, 3000); // change every 3s
+
+    return () => clearInterval(interval);
+  }, [isImageHovered, props.images]);
+
+  // Keep active thumbnail centered when list overflows
+  useEffect(() => {
+    if (!listWrapperRef.current) return;
+
+    const wrapper = listWrapperRef.current;
+    const activeThumb = wrapper.querySelector(
+      ".item-thumb.active, .item-thumb-expand.active"
+    );
+
+    if (!activeThumb) return;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const thumbRect = activeThumb.getBoundingClientRect();
+
+    const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
+    const thumbCenter = thumbRect.left + thumbRect.width / 2;
+
+    const delta = thumbCenter - wrapperCenter;
+
+    const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+    let targetScrollLeft = wrapper.scrollLeft + delta;
+
+    if (targetScrollLeft < 0) targetScrollLeft = 0;
+    if (targetScrollLeft > maxScroll) targetScrollLeft = maxScroll;
+
+    wrapper.scrollTo({
+      left: targetScrollLeft,
+      behavior: "smooth",
+    });
+  }, [hoverImage, props.images]);
+
   const calculateDiscountPercentage = (price, price_previous) => {
     return (((price_previous - price) / price_previous) * 100).toFixed(0);
   };
 
-  // 👇 stagger delay based on index (80ms per card)
+  // stagger delay based on index (80ms per card)
   const rawDelay = (props.index ?? 0) * 80;
-  const staggerDelay = isVisible
-    ? `${Math.min(rawDelay, 300)}ms` // never more than 300ms
-    : "0ms";
+  const staggerDelay = isVisible ? `${Math.min(rawDelay, 300)}ms` : "0ms";
 
   const favourite = isFavorite(props.id);
   const inCart = isInCart(props.id);
@@ -101,22 +159,25 @@ export const Item = (props) => {
       )}
 
       <Link to={`/products/${props.id}`} onClick={() => window.scrollTo(0, 0)}>
-        <div className="item-image-container">
+        <div
+          className="item-image-container"
+          onMouseEnter={() => setIsImageHovered(true)}
+          onMouseLeave={() => {
+            setIsImageHovered(false);
+            if (props.images && props.images.length > 0) {
+              setHoverImage(props.images[0]);
+            }
+          }}
+        >
           {/* Only render the image when visible */}
           {isVisible && (
             <img className="item-image" src={hoverImage} alt={props.title} />
           )}
 
           {/* Overlay that appears on hover */}
-          <div
-            className="item-hover-overlay"
-            onMouseLeave={() =>
-              props.images && props.images.length > 0
-                ? setHoverImage(props.images[0])
-                : null
-            }
-          >
-            <div className="item-image-list-wrapper">
+          <div className="item-hover-overlay">
+            {/* Thumbnails */}
+            <div className="item-image-list-wrapper" ref={listWrapperRef}>
               <div className="item-image-list">
                 {props.images.slice(0, 3).map((img, index) => {
                   const isActive = hoverImage === img;
@@ -134,7 +195,10 @@ export const Item = (props) => {
 
                 {props.images.length > 3 && (
                   <div
-                    className="item-images-expand"
+                    className={
+                      "item-images-expand" +
+                      (hoverImage === props.images[3] ? " is-active" : "")
+                    }
                     onMouseEnter={() => setHoverImage(props.images[3])}
                   >
                     <span className="item-images-expand-icon">
@@ -223,9 +287,7 @@ export const Item = (props) => {
               </div>
               {previousPrice && (
                 <div className="item-price-old">
-                  <span className="price-whole-old">
-                    {previousPrice.whole}
-                  </span>
+                  <span className="price-whole-old">{previousPrice.whole}</span>
                   <span className="price-decimals-old">
                     {previousPrice.decimals}
                   </span>

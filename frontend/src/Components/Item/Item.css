@@ -89,9 +89,9 @@
 .item-image-list-wrapper {
   align-self: center;
   width: auto;
-  max-width: 100%; 
+  max-width: 100%;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   padding: 4px 8px;
 }
 
@@ -104,31 +104,32 @@
   align-items: center;
 }
 
+/* Base thumbnail shape: small circles */
 .item-thumb,
 .item-thumb-expand {
   flex: 0 0 auto;
-  width: 4vw;
-  max-width: 80px;
-  aspect-ratio: 1 / 1.5;
-  height: auto;
-  max-height: 6vh;
+  display: block;
+  width: 2vw;
+  max-width: 60px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 50%;           /* circle */
   border: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease,
-    filter 0.2s ease;
   cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    filter 0.25s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {
   .item-thumb,
   .item-thumb-expand {
-    width: 12vw;
-    max-width: 72px;
+    width: 10vw;
+    max-width: 54px;
   }
 }
 
@@ -140,48 +141,69 @@
 /* Hover state for normal thumbnails */
 .item-thumb:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 0 3px #764ba2, 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 3px #764ba2, 0 6px 12px rgba(0,0,0,0.3);
 }
 
 .item-thumb.active,
 .item-thumb-expand.active {
-  box-shadow: 0 0 0 2px #667eea;
-  filter: brightness(1);
+  width: 4vw;
+  max-width: 72px;
+  border-radius: 12px;
+  border: 3px solid #667eea;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-/* Hover state for the "+N" thumbnail */
-.item-images-expand:hover .item-thumb-expand {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 0 3px #764ba2, 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.item-images-expand:hover .item-images-expand-icon {
-  text-shadow: 0 0 6px rgba(0,0,0,0.9);
+@media (max-width: 768px) {
+  .item-thumb.active,
+  .item-thumb-expand.active {
+    width: 12vw;
+    max-width: 64px;
+  }
 }
 
 .item-images-expand {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
+.item-images-expand img {
+  display: block;
+}
+
+/* "+N" badge – base (small when not active) */
 .item-images-expand-icon {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  font-weight: 700;
-  font-size: 1rem;
+  /* font-weight: 700; */
+  font-size: 0.75rem;             /* smaller by default */
   color: #fff;
   text-shadow: 0 0 4px rgba(0,0,0,0.7);
-
   pointer-events: none;
   z-index: 2;
+  transform: scale(1);
+  transition:
+    transform 0.25s ease,
+    font-size 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+/* When the expand thumbnail is the active one */
+.item-images-expand.is-active .item-images-expand-icon {
+  font-size: 0.95rem;             /* proportionally bigger */
+  transform: scale(1.2);
+  text-shadow: 0 0 6px rgba(0,0,0,0.9);
+}
+
+.item-images-expand:hover .item-images-expand-icon {
+  text-shadow: 0 0 6px rgba(0,0,0,0.9);
 }
 
 .item-reduced {
@@ -378,7 +400,6 @@
   margin-left: 2px;
   font-size: 0.8rem;
 }
-
 
 .item-status {
   display: flex;
