@@ -441,7 +441,7 @@
   cursor: pointer;
   font-weight: 800;
   color: grey;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .productdisplay-right-remove:hover {

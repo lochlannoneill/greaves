@@ -7,6 +7,7 @@ import {
   faCartShopping as faCartShopping_solid,
   faExpand,
   faMagnifyingGlass,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeart_regular } from "@fortawesome/free-regular-svg-icons";
 import { ShopContext } from "../../Context/ShopContext";
@@ -431,7 +432,7 @@ export const ProductDisplay = (props) => {
                   tabIndex={0}
                   onKeyDown={(e) => e.key === "Enter" && removeCart(product.id)}
                 >
-                  Remove 1 from cart
+                  <FontAwesomeIcon icon={faTrashCan} /> Remove 1
                 </span>
               </div>
             )}
