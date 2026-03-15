@@ -48,11 +48,11 @@ export const ProductDisplay = (props) => {
     return firstInStock ? firstInStock.label : null;
   };
 
-  const defaultColor = colors.length > 0 ? colors[0] : null;
+  const defaultColor = totalStock > 0 && colors.length > 0 ? colors[0] : null;
 
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
   const [selectedColor, setSelectedColor] = useState(defaultColor);
-  const [selectedSize, setSelectedSize] = useState(getDefaultSize(defaultColor));
+  const [selectedSize, setSelectedSize] = useState(totalStock > 0 ? getDefaultSize(defaultColor) : null);
 
   const handleColorChange = (color) => {
     setSelectedColor(color);
@@ -74,9 +74,19 @@ export const ProductDisplay = (props) => {
   useEffect(() => {
     setSelectedImage(product.images[0]);
     const newColors = Object.keys(product.stock);
-    const newDefaultColor = newColors.length > 0 ? newColors[0] : null;
-    setSelectedColor(newDefaultColor);
-    setSelectedSize(getDefaultSize(newDefaultColor));
+    const newTotalStock = Object.values(product.stock).reduce(
+      (acc, colorStock) =>
+        acc + Object.values(colorStock).reduce((a, b) => a + b, 0),
+      0
+    );
+    if (newTotalStock > 0) {
+      const newDefaultColor = newColors.length > 0 ? newColors[0] : null;
+      setSelectedColor(newDefaultColor);
+      setSelectedSize(getDefaultSize(newDefaultColor));
+    } else {
+      setSelectedColor(null);
+      setSelectedSize(null);
+    }
   }, [product]);
 
   useEffect(() => {

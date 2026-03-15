@@ -1244,6 +1244,7 @@ let products = [
       }
     },
     price: 65.99,
+    price_previous: 89.99,
   },
   {
     id: 32,
@@ -1278,7 +1279,6 @@ let products = [
       }
     },
     price: 79.99,
-    price_previous: 109.99,
   },
   {
     id: 33,
