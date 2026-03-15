@@ -18,7 +18,7 @@ export const Reviews = ({ reviews, productId }) => {
       ) : (
         <div className="reviews-group">
           <div className="reviews-left">
-            <ReviewAverage reviews={reviews} />
+            <ReviewAverage reviews={filteredReviews} />
             <ReviewSentiment reviews={filteredReviews} />
           </div>
           <div className="reviews-right">
