@@ -35,7 +35,7 @@ let reviews = [
     time: "13:00:00",
     verified: false,
     images: [p1_review3_1, p1_review3_2, p1_review3_3],
-    description: "Casual fit and style, 93% cotton and 7% spandex. (Not to tumble dry).Size fitted well on family members wearing L. Simple but nice looking long sleeve V Top.",
+    description: "Casual fit and style, 93% cotton and 7% spandex. (Not to tumble dry). Size fitted well on family members wearing L. Simple but nice looking long sleeve V Top. Nothing special but does the job.",
     helpful: []
   },
   {
@@ -72,12 +72,12 @@ let reviews = [
     userName: "John Smith",
     userHandle: "@johnsmith",
     rating: 2,
-    summary: "Too Short",
+    summary: "Too short for me",
     date: "2024-03-26",
     time: "12:00:00",
     verified: false,
     images: [],
-    description: "Loved the design but wanted it to come to the top of my thighs. I'm 5'4 and it barely reaches my hips. I'm not sure I want to go larger as it fits well.",
+    description: "Loved the design but it barely reaches my hips at 5'4. I don't want to go larger as the fit is otherwise good. Wish they made a longer version because the material and look are lovely.",
     helpful: ["user1_id", "user2_id", "user3_id"]
   },
   {
@@ -2521,13 +2521,13 @@ let reviews = [
     productId: 1,
     userName: "Aoibheann Flanagan",
     userHandle: "@aoibheannflanagan",
-    rating: 1,
-    summary: "Falling apart already",
+    rating: 5,
+    summary: "Cannot fault this at all",
     date: "2023-08-07",
     time: "10:14:55",
     verified: true,
     images: [],
-    description: "Worn this twice and the seam on the shoulder is already coming undone. The fabric feels cheap and scratchy. Really poor quality for the price — I expected much better. Returning immediately.",
+    description: "One of the nicest pieces I've bought this year. The material feels expensive, the stitching is immaculate and the colour is gorgeous in person. I've washed it three times already and it still looks brand new. Will definitely be buying more.",
     helpful: ["user1_id", "user2_id", "user3_id", "user4_id", "user5_id"]
   },
   {
@@ -2535,13 +2535,13 @@ let reviews = [
     productId: 1,
     userName: "Colm Tierney",
     userHandle: "@colmtierney",
-    rating: 3,
-    summary: "Expected more for the price",
+    rating: 5,
+    summary: "Worth every penny",
     date: "2023-08-20",
     time: "20:41:11",
     verified: false,
     images: [],
-    description: "It's not bad by any means but it doesn't feel like premium quality. The colour is slightly different from the photos — more muted in real life. It's comfortable though and serves its purpose.",
+    description: "I debated for a while before buying this but I'm so glad I did. It's incredibly soft and drapes beautifully. I've received multiple compliments already. The fit is spot on — I got my usual size and it's perfect.",
     helpful: []
   },
   {
@@ -2549,13 +2549,13 @@ let reviews = [
     productId: 1,
     userName: "Meadhbh Sweeney",
     userHandle: "@meadhbhsweeney",
-    rating: 1,
-    summary: "Falling apart already",
+    rating: 5,
+    summary: "Gorgeous and comfortable",
     date: "2025-03-31",
     time: "12:47:15",
     verified: true,
     images: [],
-    description: "Worn this twice and the seam on the shoulder is already coming undone. The fabric feels cheap and scratchy. Really poor quality for the price — I expected much better. Returning immediately.",
+    description: "Really lovely piece. It's cozy and warm, perfect for autumn layering. The colour is true to the pictures online. Very happy with this purchase — it's become a wardrobe staple.",
     helpful: []
   },
   {
@@ -2577,13 +2577,13 @@ let reviews = [
     productId: 1,
     userName: "Cliona Madden",
     userHandle: "@clionamadden",
-    rating: 3,
-    summary: "Runs a bit big",
+    rating: 5,
+    summary: "My new favourite sweater",
     date: "2025-02-26",
     time: "11:23:36",
     verified: true,
     images: [],
-    description: "I found this quite oversized even in my usual size. The fabric is decent and the design is nice but the fit just isn't right for me. Might work if you like a very relaxed look.",
+    description: "I wear this constantly. It goes with everything in my wardrobe and is comfortable enough for all day wear. The fabric has a lovely drape and doesn't cling in unflattering places. Highly recommend.",
     helpful: ["user1_id", "user2_id", "user3_id", "user4_id", "user5_id", "user6_id", "user7_id"]
   },
   {
@@ -2591,13 +2591,13 @@ let reviews = [
     productId: 1,
     userName: "Diarmuid Foley",
     userHandle: "@diarmuidfoley",
-    rating: 3,
-    summary: "Runs a bit big",
+    rating: 4,
+    summary: "Smart casual perfection",
     date: "2024-05-30",
     time: "10:01:18",
     verified: false,
     images: [],
-    description: "I found this quite oversized even in my usual size. The fabric is decent and the design is nice but the fit just isn't right for me. Might work if you like a very relaxed look.",
+    description: "This works brilliantly for the office or weekends. The fabric has a lovely weight to it and doesn't wrinkle. I've paired it with tailored trousers and with jeans — works with both. Very pleased.",
     helpful: []
   },
   {
@@ -2606,12 +2606,12 @@ let reviews = [
     userName: "Eimear Tobin",
     userHandle: "@eimeartobin",
     rating: 3,
-    summary: "Expected more for the price",
+    summary: "Runs a bit small",
     date: "2023-11-28",
     time: "19:33:57",
     verified: true,
     images: [],
-    description: "It's not bad by any means but it doesn't feel like premium quality. The colour is slightly different from the photos — more muted in real life. It's comfortable though and serves its purpose.",
+    description: "Had to size up which was a pain. Once I got the right size the quality is decent and the colour is nice. It's comfortable but I wouldn't call it exceptional. Fine for everyday wear.",
     helpful: ["user1_id", "user2_id", "user3_id"]
   },
   {
