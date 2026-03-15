@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Review from "../Review/Review";
 import "./ReviewList.css";
+
+const REVIEWS_PER_BATCH = 5;
 
 export const ReviewList = ({ reviews }) => {
   const [sortOption, setSortOption] = useState("");
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_BATCH);
+  const sentinelRef = useRef(null);
 
   // TODO - Helpful -> does not continue after first.
   // Sorting function based on the selected option
@@ -28,6 +30,7 @@ export const ReviewList = ({ reviews }) => {
   // Handle sorting option change
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
+    setVisibleCount(REVIEWS_PER_BATCH);
   };
 
   // Filter reviews based on verification status
@@ -41,12 +44,53 @@ export const ReviewList = ({ reviews }) => {
   // Handle verified review filter option change
   const handleVerifiedChange = () => {
     setShowVerifiedOnly(!showVerifiedOnly);
+    setVisibleCount(REVIEWS_PER_BATCH);
   };
 
   // Sort and filter reviews
   const sortedAndFilteredReviews = filterByVerification(
     sortByOption(sortOption)
   );
+
+  const hasMore = visibleCount < sortedAndFilteredReviews.length;
+
+  const loadMore = useCallback(() => {
+    setVisibleCount((prev) =>
+      Math.min(prev + REVIEWS_PER_BATCH, sortedAndFilteredReviews.length)
+    );
+  }, [sortedAndFilteredReviews.length]);
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    if (!hasMore || !sentinelRef.current) return;
+
+    let loadTimer = null;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadTimer = setTimeout(() => {
+            loadMore();
+          }, 400);
+        } else {
+          // If scrolled away before delay, cancel
+          if (loadTimer) {
+            clearTimeout(loadTimer);
+            loadTimer = null;
+          }
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    const sentinel = sentinelRef.current;
+    observer.observe(sentinel);
+
+    return () => {
+      if (loadTimer) clearTimeout(loadTimer);
+      observer.disconnect();
+    };
+  }, [hasMore, loadMore]);
 
   return (
     <div className="reviewlist">
@@ -83,15 +127,15 @@ export const ReviewList = ({ reviews }) => {
         </div>
       </div>
       <div className="reviewlist-reviews">
-        {sortedAndFilteredReviews.map((review) => (
+        {sortedAndFilteredReviews.slice(0, visibleCount).map((review) => (
           <Review key={review.id} review={review} />
         ))}
       </div>
-      <div className="reviewlist-showmore">
-        <p>
-          Show More <FontAwesomeIcon icon={faChevronDown} size="2xs" />
-        </p>
-      </div>
+      {hasMore && (
+        <div ref={sentinelRef} className="reviewlist-loading">
+          <div className="reviewlist-spinner" />
+        </div>
+      )}
     </div>
   );
 };
