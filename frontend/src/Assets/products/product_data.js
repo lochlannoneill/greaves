@@ -58,9 +58,9 @@ let products = [
     rating: 4.0,
     stock: {
       "Rust": {
-        small: 0,
-        medium: 0,
-        large: 1,
+        small: 3,
+        medium: 5,
+        large: 2,
         xlarge: 0,
         xxlarge: 0
       },
@@ -73,16 +73,16 @@ let products = [
       },
       "Charcoal": {
         small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
+        medium: 4,
+        large: 6,
+        xlarge: 3,
         xxlarge: 0
       },
       "Navy": {
         small: 0,
         medium: 0,
-        large: 1,
-        xlarge: 0,
+        large: 2,
+        xlarge: 1,
         xxlarge: 0
       }
     },
@@ -100,25 +100,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Brown": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 25,
+        large: 17,
+        xlarge: 19,
+        xxlarge: 14
       },
       "Forest Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 14,
+        medium: 15,
+        large: 19,
+        xlarge: 8,
+        xxlarge: 6
       },
       "Burgundy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 18,
+        medium: 37,
+        large: 29,
+        xlarge: 10,
+        xxlarge: 8
       }
     },
     price: 45.99,
@@ -134,25 +134,25 @@ let products = [
     rating: 4.5,
     stock: {
       "Burgundy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 18,
+        medium: 20,
+        large: 35,
+        xlarge: 12,
+        xxlarge: 6
       },
       "Olive": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 8,
+        medium: 22,
+        large: 29,
+        xlarge: 9,
+        xxlarge: 18
       },
       "Maroon": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 18,
+        medium: 18,
+        large: 34,
+        xlarge: 24,
+        xxlarge: 13
       }
     },
     price: 39.99,
@@ -168,25 +168,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Dark Wash": {
-        small: 8,
-        medium: 2,
-        large: 7,
-        xlarge: 2,
-        xxlarge: 0
+        small: 15,
+        medium: 35,
+        large: 14,
+        xlarge: 19,
+        xxlarge: 15
       },
       "Medium Wash": {
-        small: 4,
-        medium: 1,
-        large: 1,
+        small: 0,
+        medium: 0,
+        large: 0,
         xlarge: 0,
         xxlarge: 0
       },
       "Light Wash": {
-        small: 5,
-        medium: 2,
-        large: 2,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 31,
+        large: 15,
+        xlarge: 5,
+        xxlarge: 13
       }
     },
     price: 99.99,
@@ -203,32 +203,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Forest Green": {
-        small: 0,
-        medium: 0,
+        small: 4,
+        medium: 4,
         large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        xlarge: 4,
+        xxlarge: 4
       },
       "Oatmeal": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 1,
+        medium: 3,
+        large: 1,
+        xlarge: 3,
+        xxlarge: 3
       },
       "Black": {
-        small: 0,
+        small: 1,
         medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        large: 3,
+        xlarge: 3,
+        xxlarge: 3
       },
       "Wine": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 4,
+        medium: 1,
+        large: 2,
+        xlarge: 3,
+        xxlarge: 3
       }
     },
     price: 99.99,
@@ -245,25 +245,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Heather Gray": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 17,
+        medium: 37,
+        large: 32,
+        xlarge: 21,
+        xxlarge: 7
       },
       "Dusty Rose": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 22,
+        medium: 18,
+        large: 34,
+        xlarge: 8,
+        xxlarge: 8
       },
       "Ivory": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 8,
+        medium: 34,
+        large: 22,
+        xlarge: 8,
+        xxlarge: 10
       }
     },
     price: 76.99,
@@ -279,30 +279,30 @@ let products = [
     rating: 3.5,
     stock: {
       "Camel": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
+        small: 15,
+        medium: 11,
+        large: 10,
+        xlarge: 16,
         xxlarge: 0
       },
       "Burgundy": {
         small: 0,
         medium: 0,
-        large: 0,
+        large: 20,
         xlarge: 0,
-        xxlarge: 0
+        xxlarge: 17
       },
       "Ivory": {
         small: 0,
-        medium: 0,
-        large: 0,
+        medium: 29,
+        large: 21,
         xlarge: 0,
-        xxlarge: 0
+        xxlarge: 24
       },
       "Slate Blue": {
         small: 0,
         medium: 0,
-        large: 0,
+        large: 19,
         xlarge: 0,
         xxlarge: 0
       }
@@ -362,25 +362,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Olive": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 23,
+        medium: 22,
+        large: 22,
+        xlarge: 29,
+        xxlarge: 8
       },
       "Charcoal": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 9,
+        medium: 36,
+        large: 32,
+        xlarge: 13,
+        xxlarge: 8
       },
       "Dusty Pink": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 35,
+        large: 30,
+        xlarge: 11,
+        xxlarge: 10
       }
     },
     price: 45.99,
@@ -410,18 +410,18 @@ let products = [
         xxlarge: 0
       },
       "Olive": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 6,
+        medium: 5,
+        large: 3,
+        xlarge: 3,
+        xxlarge: 6
       },
       "Wine Red": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 2,
+        medium: 2,
+        large: 5,
+        xlarge: 1,
+        xxlarge: 1
       }
     },
     price: 65.99,
@@ -438,10 +438,10 @@ let products = [
     stock: {
       "Rustic": {
         small: 0,
-        medium: 0,
+        medium: 1,
         large: 0,
         xlarge: 0,
-        xxlarge: 0
+        xxlarge: 2
       },
       "Ivory": {
         small: 0,
@@ -478,25 +478,25 @@ let products = [
     rating: 4.2,
     stock: {
       "Charcoal": {
-        small: 1,
-        medium: 4,
-        large: 5,
-        xlarge: 2,
-        xxlarge: 1
+        small: 17,
+        medium: 22,
+        large: 25,
+        xlarge: 28,
+        xxlarge: 14
       },
       "Cream": {
-        small: 1,
-        medium: 1,
-        large: 1,
-        xlarge: 0,
-        xxlarge: 0
+        small: 21,
+        medium: 15,
+        large: 32,
+        xlarge: 8,
+        xxlarge: 13
       },
       "Teal": {
-        small: 1,
-        medium: 1,
-        large: 2,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 38,
+        large: 12,
+        xlarge: 14,
+        xxlarge: 6
       }
     },
     price: 59.99,
@@ -513,32 +513,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Olive": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 21,
+        medium: 17,
+        large: 35,
+        xlarge: 12,
+        xxlarge: 8
       },
       "Tan": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 20,
+        medium: 25,
+        large: 32,
+        xlarge: 22,
+        xxlarge: 17
       },
       "Stone Gray": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 13,
+        medium: 33,
+        large: 16,
+        xlarge: 21,
+        xxlarge: 17
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 14,
+        medium: 40,
+        large: 17,
+        xlarge: 12,
+        xxlarge: 14
       }
     },
     price: 34.99,
@@ -554,32 +554,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Black": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 4,
+        medium: 2,
+        large: 3,
+        xlarge: 2,
+        xxlarge: 4
       },
       "Sky Blue": {
-        small: 0,
-        medium: 0,
-        large: 0,
+        small: 2,
+        medium: 1,
+        large: 3,
         xlarge: 0,
-        xxlarge: 0
+        xxlarge: 2
       },
       "Sand": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 3,
+        medium: 4,
+        large: 3,
+        xlarge: 1,
+        xxlarge: 4
       },
       "Sage Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 2,
+        medium: 4,
+        large: 1,
+        xlarge: 2,
+        xxlarge: 1
       }
     },
     price: 59.99,
@@ -596,18 +596,18 @@ let products = [
     rating: 3.5,
     stock: {
       "Coffee": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 17,
+        medium: 19,
+        large: 13,
+        xlarge: 21,
+        xxlarge: 12
       },
       "Slate": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 12,
+        medium: 27,
+        large: 26,
+        xlarge: 18,
+        xxlarge: 9
       },
       "Olive": {
         small: 0,
@@ -617,11 +617,11 @@ let products = [
         xxlarge: 0
       },
       "Rust": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 20,
+        medium: 35,
+        large: 15,
+        xlarge: 22,
+        xxlarge: 9
       }
     },
     price: 99.99,
@@ -638,25 +638,25 @@ let products = [
     rating: 3.5,
     stock: {
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 8,
+        medium: 21,
+        large: 19,
+        xlarge: 19,
+        xxlarge: 10
       },
       "Oatmeal": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 13,
+        medium: 29,
+        large: 17,
+        xlarge: 28,
+        xxlarge: 7
       },
       "Cream": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 36,
+        large: 30,
+        xlarge: 10,
+        xxlarge: 12
       }
     },
     price: 82.99,
@@ -672,25 +672,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Cream": {
-        small: 0,
+        small: 12,
         medium: 0,
-        large: 0,
-        xlarge: 0,
+        large: 28,
+        xlarge: 28,
         xxlarge: 0
       },
       "Coffee": {
         small: 0,
-        medium: 0,
+        medium: 20,
         large: 0,
-        xlarge: 0,
+        xlarge: 17,
         xxlarge: 0
       },
       "Dusty Blue": {
         small: 0,
         medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        large: 16,
+        xlarge: 19,
+        xxlarge: 25
       }
     },
     price: 99.99,
@@ -707,32 +707,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Grey": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 17,
+        medium: 16,
+        large: 21,
+        xlarge: 15,
+        xxlarge: 9
       },
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 16,
+        medium: 26,
+        large: 29,
+        xlarge: 21,
+        xxlarge: 14
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 17,
+        medium: 24,
+        large: 14,
+        xlarge: 15,
+        xxlarge: 5
       },
       "Burgundy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 40,
+        large: 14,
+        xlarge: 26,
+        xxlarge: 16
       }
     },
     price: 73.99,
@@ -786,7 +786,7 @@ let products = [
         small: 0,
         medium: 0,
         large: 0,
-        xlarge: 0,
+        xlarge: 1,
         xxlarge: 0
       },
       "Pale Blue": {
@@ -824,32 +824,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Coffee": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 20,
+        medium: 36,
+        large: 29,
+        xlarge: 15,
+        xxlarge: 13
       },
       "Forest Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 12,
+        medium: 15,
+        large: 29,
+        xlarge: 17,
+        xxlarge: 11
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 15,
+        large: 35,
+        xlarge: 20,
+        xxlarge: 15
       },
       "Rust": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 22,
+        medium: 15,
+        large: 25,
+        xlarge: 24,
+        xxlarge: 10
       }
     },
     price: 63.99,
@@ -880,18 +880,18 @@ let products = [
         xxlarge: 0
       },
       "Olive": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 1,
+        medium: 3,
+        large: 1,
+        xlarge: 4,
+        xxlarge: 3
       },
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 2,
+        medium: 5,
+        large: 1,
+        xlarge: 5,
+        xxlarge: 1
       }
     },
     price: 83.99,
@@ -907,25 +907,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Tan": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 17,
+        large: 19,
+        xlarge: 17,
+        xxlarge: 14
       },
       "Charcoal": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 8,
+        medium: 34,
+        large: 27,
+        xlarge: 30,
+        xxlarge: 18
       },
       "Sage": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 29,
+        large: 28,
+        xlarge: 23,
+        xxlarge: 16
       }
     },
     price: 65.99,
@@ -941,25 +941,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Charcoal": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 3,
+        medium: 2,
+        large: 3,
+        xlarge: 3,
+        xxlarge: 1
       },
       "Black": {
-        small: 0,
-        medium: 0,
+        small: 3,
+        medium: 3,
         large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        xlarge: 2,
+        xxlarge: 3
       },
       "Navy": {
-        small: 0,
+        small: 1,
         medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        large: 2,
+        xlarge: 2,
+        xxlarge: 2
       }
     },
     price: 43.99,
@@ -975,25 +975,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Oatmeal": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 26,
+        large: 23,
+        xlarge: 10,
+        xxlarge: 11
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 13,
+        medium: 19,
+        large: 13,
+        xlarge: 10,
+        xxlarge: 5
       },
       "Red": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 18,
+        medium: 38,
+        large: 21,
+        xlarge: 20,
+        xxlarge: 15
       }
     },
     price: 79.99,
@@ -1010,18 +1010,18 @@ let products = [
     rating: 3.5,
     stock: {
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 9,
+        medium: 32,
+        large: 26,
+        xlarge: 7,
+        xxlarge: 5
       },
       "Red": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 17,
+        medium: 17,
+        large: 15,
+        xlarge: 21,
+        xxlarge: 14
       },
       "Charcoal": {
         small: 0,
@@ -1031,11 +1031,11 @@ let products = [
         xxlarge: 0
       },
       "Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 8,
+        medium: 35,
+        large: 26,
+        xlarge: 8,
+        xxlarge: 15
       }
     },
     price: 76.99,
@@ -1051,25 +1051,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Red Stripe": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 9,
+        medium: 18,
+        large: 31,
+        xlarge: 30,
+        xxlarge: 5
       },
       "Blue Stripe": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 14,
+        medium: 26,
+        large: 22,
+        xlarge: 8,
+        xxlarge: 17
       },
       "Green Stripe": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 15,
+        medium: 34,
+        large: 21,
+        xlarge: 15,
+        xxlarge: 16
       }
     },
     price: 54.99,
@@ -1086,9 +1086,9 @@ let products = [
     stock: {
       "Grey": {
         small: 0,
-        medium: 0,
+        medium: 1,
         large: 0,
-        xlarge: 0,
+        xlarge: 1,
         xxlarge: 0
       },
       "Black": {
@@ -1133,39 +1133,39 @@ let products = [
     rating: 3.5,
     stock: {
       "Black": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 25,
+        medium: 18,
+        large: 35,
+        xlarge: 22,
+        xxlarge: 6
       },
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 36,
+        large: 24,
+        xlarge: 12,
+        xxlarge: 7
       },
       "Heather Gray": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 14,
+        medium: 19,
+        large: 17,
+        xlarge: 20,
+        xxlarge: 7
       },
       "Sky Blue": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 13,
+        medium: 27,
+        large: 12,
+        xlarge: 28,
+        xxlarge: 7
       },
       "Forest Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 22,
+        medium: 18,
+        large: 15,
+        xlarge: 27,
+        xxlarge: 8
       }
     },
     price:  69.99,
@@ -1182,24 +1182,24 @@ let products = [
     rating: 3.5,
     stock: {
       "White": {
-        small: 0,
+        small: 15,
         medium: 0,
-        large: 0,
+        large: 21,
         xlarge: 0,
         xxlarge: 0
       },
       "Light Blue": {
-        small: 0,
-        medium: 0,
+        small: 11,
+        medium: 21,
         large: 0,
         xlarge: 0,
-        xxlarge: 0
+        xxlarge: 17
       },
       "Pink": {
         small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
+        medium: 30,
+        large: 9,
+        xlarge: 19,
         xxlarge: 0
       }
     },
@@ -1216,32 +1216,32 @@ let products = [
     rating: 3.5,
     stock: {
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 15,
+        medium: 35,
+        large: 27,
+        xlarge: 21,
+        xxlarge: 10
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 12,
+        medium: 30,
+        large: 32,
+        xlarge: 30,
+        xxlarge: 17
       },
       "Burgundy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 15,
+        medium: 27,
+        large: 20,
+        xlarge: 15,
+        xxlarge: 17
       },
       "Hunter Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 18,
+        medium: 24,
+        large: 32,
+        xlarge: 16,
+        xxlarge: 11
       }
     },
     price: 65.99,
@@ -1292,32 +1292,32 @@ let products = [
     rating: 3.5,
     stock: {
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
+        small: 2,
+        medium: 1,
+        large: 2,
         xlarge: 0,
-        xxlarge: 0
+        xxlarge: 3
       },
       "Sky Blue": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 2,
+        medium: 4,
+        large: 4,
+        xlarge: 3,
+        xxlarge: 3
       },
       "Red": {
-        small: 0,
+        small: 4,
         medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        large: 2,
+        xlarge: 2,
+        xxlarge: 1
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 2,
+        medium: 1,
+        large: 1,
+        xlarge: 4,
+        xxlarge: 3
       }
     },
     price: 76.99,
@@ -1333,25 +1333,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Blue and Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 10,
+        medium: 20,
+        large: 19,
+        xlarge: 17,
+        xxlarge: 11
       },
       "Red and Orange": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 25,
+        medium: 26,
+        large: 27,
+        xlarge: 18,
+        xxlarge: 11
       },
       "Navy and Gray": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 9,
+        medium: 26,
+        large: 27,
+        xlarge: 15,
+        xxlarge: 11
       }
     },
     price: 54.99,
@@ -1381,18 +1381,18 @@ let products = [
         xxlarge: 0
       },
       "Black": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 1,
+        medium: 1,
+        large: 1,
+        xlarge: 1,
+        xxlarge: 2
       },
       "Navy": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 5,
+        medium: 4,
+        large: 4,
+        xlarge: 1,
+        xxlarge: 5
       }
     },
     price: 83.99,
@@ -1408,32 +1408,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Black": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 37,
+        large: 14,
+        xlarge: 28,
+        xxlarge: 9
       },
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 23,
+        medium: 23,
+        large: 19,
+        xlarge: 27,
+        xxlarge: 11
       },
       "Cream": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 37,
+        large: 12,
+        xlarge: 29,
+        xxlarge: 13
       },
       "Light Blue": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 11,
+        medium: 16,
+        large: 17,
+        xlarge: 27,
+        xxlarge: 18
       }
     },
     price: 39.99,
@@ -1449,25 +1449,25 @@ let products = [
     rating: 3.5,
     stock: {
       "Blush Pink": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 18,
+        medium: 31,
+        large: 32,
+        xlarge: 17,
+        xxlarge: 15
       },
       "Ivory": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 25,
+        medium: 29,
+        large: 21,
+        xlarge: 24,
+        xxlarge: 18
       },
       "Lilac": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 23,
+        medium: 24,
+        large: 14,
+        xlarge: 8,
+        xxlarge: 10
       }
     },
     price: 49.99,
@@ -1486,7 +1486,7 @@ let products = [
         small: 0,
         medium: 0,
         large: 0,
-        xlarge: 0,
+        xlarge: 1,
         xxlarge: 0
       },
       "Rose Plaid": {
@@ -1525,11 +1525,11 @@ let products = [
     rating: 3.5,
     stock: {
       "Red Check": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 13,
+        medium: 12,
+        large: 29,
+        xlarge: 21,
+        xxlarge: 6
       },
       "Blue Check": {
         small: 0,
@@ -1539,11 +1539,11 @@ let products = [
         xxlarge: 0
       },
       "Pink Check": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 14,
+        medium: 14,
+        large: 16,
+        xlarge: 6,
+        xxlarge: 13
       }
     },
     price: 54.99,
@@ -1559,25 +1559,25 @@ let products = [
     rating: 3.5,
     stock: {
       "White": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 17,
+        medium: 29,
+        large: 25,
+        xlarge: 9,
+        xxlarge: 17
       },
       "Peach": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 19,
+        medium: 28,
+        large: 12,
+        xlarge: 15,
+        xxlarge: 15
       },
       "Mint Green": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 12,
+        medium: 24,
+        large: 30,
+        xlarge: 10,
+        xxlarge: 11
       }
     },
     price: 64.99,
@@ -1593,24 +1593,24 @@ let products = [
     rating: 3.5,
     stock: {
       "Red Check": {
-        small: 0,
+        small: 2,
         medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        large: 3,
+        xlarge: 2,
+        xxlarge: 1
       },
       "Purple Check": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 1,
+        medium: 1,
+        large: 2,
+        xlarge: 1,
+        xxlarge: 3
       },
       "Teal Check": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
+        small: 1,
+        medium: 4,
+        large: 1,
+        xlarge: 1,
         xxlarge: 0
       }
     },
@@ -1628,32 +1628,32 @@ let products = [
     rating: 3.5,
     stock: {
       "Black Plaid": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 21,
+        medium: 25,
+        large: 21,
+        xlarge: 22,
+        xxlarge: 12
       },
       "Navy Plaid": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 14,
+        medium: 37,
+        large: 32,
+        xlarge: 22,
+        xxlarge: 13
       },
       "Green Plaid": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 12,
+        medium: 17,
+        large: 14,
+        xlarge: 19,
+        xxlarge: 5
       },
       "Red Plaid": {
-        small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        small: 24,
+        medium: 37,
+        large: 20,
+        xlarge: 25,
+        xxlarge: 9
       }
     },
     price: 57.99,
@@ -1670,24 +1670,24 @@ let products = [
     stock: {
       "Sky Blue": {
         small: 0,
-        medium: 0,
-        large: 0,
-        xlarge: 0,
+        medium: 17,
+        large: 17,
+        xlarge: 13,
         xxlarge: 0
       },
       "Blush Pink": {
         small: 0,
         medium: 0,
-        large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        large: 23,
+        xlarge: 19,
+        xxlarge: 18
       },
       "Coffee Brown": {
-        small: 0,
-        medium: 0,
+        small: 11,
+        medium: 12,
         large: 0,
-        xlarge: 0,
-        xxlarge: 0
+        xlarge: 13,
+        xxlarge: 26
       }
     },
     price: 19.97,

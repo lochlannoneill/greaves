@@ -318,7 +318,7 @@ export const ProductDisplay = (props) => {
               className={`productdisplay-right-stock ${
                 totalStock === 0
                   ? "out-of-stock"
-                  : totalStock < 5
+                  : totalStock < 50
                   ? "low-stock"
                   : ""
               }`}
@@ -326,7 +326,7 @@ export const ProductDisplay = (props) => {
               <p>
                 {totalStock === 0
                   ? "Out of stock"
-                  : totalStock < 5
+                  : totalStock < 50
                   ? `Only ${totalStock} left in stock!`
                   : `${totalStock} left in stock`}
               </p>
