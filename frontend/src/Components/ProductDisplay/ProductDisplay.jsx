@@ -421,9 +421,13 @@ export const ProductDisplay = (props) => {
             </button>
             <button
               onClick={() => {
-                addCart(product.id);
+                if (selectedColor && selectedSize) {
+                  addCart(product.id);
+                }
               }}
-              className="productdisplay-right-category-buttons-cart"
+              disabled={!selectedColor || !selectedSize}
+              className={`productdisplay-right-category-buttons-cart${!selectedColor || !selectedSize ? " disabled" : ""}`}
+              title={!selectedColor || !selectedSize ? "Please select a colour and size" : ""}
             >
               <span>Add to Cart</span>
               <FontAwesomeIcon icon={faCartShopping_solid} />

@@ -551,8 +551,14 @@
   background-color: #171717 !important;
 }
 
-.productdisplay-right-category-buttons-cart:hover {
+.productdisplay-right-category-buttons-cart:hover:not(.disabled) {
   background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}
+
+.productdisplay-right-category-buttons-cart.disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .productdisplay-right-filters {
