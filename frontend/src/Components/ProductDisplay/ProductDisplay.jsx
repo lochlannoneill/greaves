@@ -348,15 +348,18 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-color">
             <h3>Select Colour</h3>
             <div className="productdisplay-right-colors">
-              {colors.map((color, index) => (
-                <div
-                  key={index}
-                  className={selectedColor === color ? "color-selected" : ""}
-                  onClick={() => handleColorChange(color)}
-                >
-                  {color}
-                </div>
-              ))}
+              {colors.map((color, index) => {
+                const colorInStock = Object.values(product.stock[color]).some((v) => v > 0);
+                return (
+                  <div
+                    key={index}
+                    className={`${selectedColor === color ? "color-selected" : ""}${!colorInStock ? " color-out-of-stock" : ""}`}
+                    onClick={() => colorInStock && handleColorChange(color)}
+                  >
+                    {color}
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="productdisplay-right-size">
