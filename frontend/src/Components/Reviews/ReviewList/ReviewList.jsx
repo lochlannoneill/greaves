@@ -5,7 +5,7 @@ import "./ReviewList.css";
 const REVIEWS_PER_BATCH = 5;
 
 export const ReviewList = ({ reviews }) => {
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("helpful");
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_BATCH);
   const sentinelRef = useRef(null);
@@ -64,30 +64,19 @@ export const ReviewList = ({ reviews }) => {
   useEffect(() => {
     if (!hasMore || !sentinelRef.current) return;
 
-    let loadTimer = null;
-
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          loadTimer = setTimeout(() => {
-            loadMore();
-          }, 400);
-        } else {
-          // If scrolled away before delay, cancel
-          if (loadTimer) {
-            clearTimeout(loadTimer);
-            loadTimer = null;
-          }
+          loadMore();
         }
       },
-      { threshold: 1.0 }
+      { rootMargin: "300px" }
     );
 
     const sentinel = sentinelRef.current;
     observer.observe(sentinel);
 
     return () => {
-      if (loadTimer) clearTimeout(loadTimer);
       observer.disconnect();
     };
   }, [hasMore, loadMore]);
