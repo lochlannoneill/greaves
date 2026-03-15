@@ -25,8 +25,11 @@ export const ProductDisplay = (props) => {
   const { cart, addCart, removeCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
 
+  const colors = Object.keys(product.stock);
+
   const totalStock = Object.values(product.stock).reduce(
-    (acc, curr) => acc + curr,
+    (acc, colorStock) =>
+      acc + Object.values(colorStock).reduce((a, b) => a + b, 0),
     0
   );
 
@@ -38,16 +41,25 @@ export const ProductDisplay = (props) => {
     { label: "XXL", key: "xxlarge" },
   ];
 
-  const getDefaultSize = () => {
-    const firstInStock = sizes.find((s) => product.stock[s.key] > 0);
+  const getDefaultSize = (color) => {
+    if (!color || !product.stock[color]) return null;
+    const firstInStock = sizes.find((s) => product.stock[color][s.key] > 0);
     return firstInStock ? firstInStock.label : null;
   };
 
+  const defaultColor = colors.length > 0 ? colors[0] : null;
+
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
-  const [selectedColor, setSelectedColor] = useState(
-    product.colors && product.colors.length > 0 ? product.colors[0] : null
-  );
-  const [selectedSize, setSelectedSize] = useState(getDefaultSize());
+  const [selectedColor, setSelectedColor] = useState(defaultColor);
+  const [selectedSize, setSelectedSize] = useState(getDefaultSize(defaultColor));
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+    const sizeObj = sizes.find((s) => s.label === selectedSize);
+    if (!sizeObj || !product.stock[color] || product.stock[color][sizeObj.key] <= 0) {
+      setSelectedSize(getDefaultSize(color));
+    }
+  };
 
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
@@ -60,11 +72,10 @@ export const ProductDisplay = (props) => {
 
   useEffect(() => {
     setSelectedImage(product.images[0]);
-    setSelectedColor(
-      product.colors && product.colors.length > 0 ? product.colors[0] : null
-    );
-    const firstInStock = sizes.find((s) => product.stock[s.key] > 0);
-    setSelectedSize(firstInStock ? firstInStock.label : null);
+    const newColors = Object.keys(product.stock);
+    const newDefaultColor = newColors.length > 0 ? newColors[0] : null;
+    setSelectedColor(newDefaultColor);
+    setSelectedSize(getDefaultSize(newDefaultColor));
   }, [product]);
 
   useEffect(() => {
@@ -336,11 +347,11 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-color">
             <h3>Select Colour</h3>
             <div className="productdisplay-right-colors">
-              {product.colors && product.colors.map((color, index) => (
+              {colors.map((color, index) => (
                 <div
                   key={index}
                   className={selectedColor === color ? "color-selected" : ""}
-                  onClick={() => setSelectedColor(color)}
+                  onClick={() => handleColorChange(color)}
                 >
                   {color}
                 </div>
@@ -356,7 +367,9 @@ export const ProductDisplay = (props) => {
             </p>
             <div className="productdisplay-right-sizes">
               {sizes.map((size) => {
-                const inStock = product.stock[size.key] > 0;
+                const inStock = selectedColor && product.stock[selectedColor]
+                  ? product.stock[selectedColor][size.key] > 0
+                  : false;
                 return (
                   <div
                     key={size.label}
