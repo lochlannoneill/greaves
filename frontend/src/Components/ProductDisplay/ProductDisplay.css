@@ -9,6 +9,7 @@
   position: sticky;
   top: 2vh;
   align-self: flex-start;
+  z-index: 10;
 }
 
 .productdisplay-img {
@@ -722,5 +723,5 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   pointer-events: none;
-  z-index: 3;
+  z-index: 100;
 }
