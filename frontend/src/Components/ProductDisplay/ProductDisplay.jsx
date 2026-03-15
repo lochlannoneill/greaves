@@ -314,14 +314,9 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-color">
             <h3>Select Colour</h3>
             <div className="productdisplay-right-colors">
-              <div>White</div>
-              <div>Black</div>
-              <div>Blue</div>
-              <div>Green</div>
-              <div>Grey</div>
-              <div>Red</div>
-              <div>Yellow</div>
-              <div>Purple</div>
+              {product.colors && product.colors.map((color, index) => (
+                <div key={index}>{color}</div>
+              ))}
             </div>
           </div>
           <div className="productdisplay-right-size">
