@@ -126,23 +126,65 @@
   gap: 4vh;
 }
 
-.reviewlist-showmore {
+.reviewlist-pagination {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+}
+
+.reviewlist-pagination-pages {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.reviewlist-pagination-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
   color: grey;
-}
-
-.reviewlist-showmore p:hover {
-  color: #3a3a3a;
   cursor: pointer;
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.25s;
+  font-size: 0.9rem;
+  transition: 0.2s;
 }
 
-.reviewlist-showmore p:active {
-  color: #171717;
-  transform: scale(0.975);
+.reviewlist-pagination-btn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+  color: #3a3a3a;
+}
+
+.reviewlist-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.reviewlist-pagination-page {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: grey;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.reviewlist-pagination-page:hover {
+  background-color: #f0f0f0;
+  color: #3a3a3a;
+}
+
+.reviewlist-pagination-page.active {
+  background-color: #171717;
+  color: #fff;
+  border-color: #171717;
 }
