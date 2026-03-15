@@ -348,8 +348,7 @@ let products = [
         xxlarge: 0
       }
     },
-    price: 89.99,
-    price_previous: 109.99,
+    price: 89.99
   },
   {
     id: 9,

@@ -21,6 +21,7 @@ export const ItemList = ({ products, category }) => {
           price_previous={item.price_previous}
           description={item.description}
           reviews={item.reviews}
+          stock={item.stock}
         />
       ))}
     </div>

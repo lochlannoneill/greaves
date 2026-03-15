@@ -121,6 +121,15 @@ export const Item = (props) => {
   const inCart = isInCart(props.id);
   const cartCount = countInCart(props.id);
 
+  const totalStock = props.stock
+    ? Object.values(props.stock).reduce(
+        (acc, colorStock) =>
+          acc + Object.values(colorStock).reduce((a, b) => a + b, 0),
+        0
+      )
+    : null;
+  const isOutOfStock = totalStock === 0;
+
   // Format prices
   const currentPrice = formatPrice(props.price);
   const previousPrice = props.price_previous
@@ -130,9 +139,14 @@ export const Item = (props) => {
   return (
     <div
       ref={ref}
-      className={`item ${isVisible ? "item--visible" : ""}`}
+      className={`item ${isVisible ? "item--visible" : ""}${isOutOfStock ? " item--out-of-stock" : ""}`}
       style={{ transitionDelay: staggerDelay }}
     >
+      {isOutOfStock && (
+        <div className="item-out-of-stock-overlay">
+          <span>Out of stock</span>
+        </div>
+      )}
       {(favourite || inCart) && (
         <div className="item-status-floating">
           {favourite && (
