@@ -22,7 +22,7 @@ let reviews = [
     verified: true,
     images: [p1_review1_1, p1_review1_2, p1_review1_3, p1_review1_4],
     description: "Wow, this top is one of the softest tops I've ever owned, it really feels so lovely on.It's quite lightweight so won't keep you very warm but is stylish,I love the unusual sleeves however, I'm quite tall (5'9), and found the sleeves short.For reference I wear a 10-12 in tops but got the S as didn't want it to be too baggy, there is loads of stretch so I'm happy with the size, actually wish it was a bit more slim fitting.",
-    helpful: ["user1_id", "user2_id", "user3_id", "user4_id", "user5_id"]
+    helpful: ["user1_id", "user2_id", "user3_id", "user4_id", "user5_id", "user6_id", "user7_id", "user8_id", "user9_id", "user10_id", "user11_id"]
   },
   {
     id: 2,
