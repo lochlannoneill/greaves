@@ -30,7 +30,24 @@ export const ProductDisplay = (props) => {
     0
   );
 
+  const sizes = [
+    { label: "S", key: "small" },
+    { label: "M", key: "medium" },
+    { label: "L", key: "large" },
+    { label: "XL", key: "xlarge" },
+    { label: "XXL", key: "xxlarge" },
+  ];
+
+  const getDefaultSize = () => {
+    const firstInStock = sizes.find((s) => product.stock[s.key] > 0);
+    return firstInStock ? firstInStock.label : null;
+  };
+
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
+  const [selectedColor, setSelectedColor] = useState(
+    product.colors && product.colors.length > 0 ? product.colors[0] : null
+  );
+  const [selectedSize, setSelectedSize] = useState(getDefaultSize());
 
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
@@ -43,6 +60,11 @@ export const ProductDisplay = (props) => {
 
   useEffect(() => {
     setSelectedImage(product.images[0]);
+    setSelectedColor(
+      product.colors && product.colors.length > 0 ? product.colors[0] : null
+    );
+    const firstInStock = sizes.find((s) => product.stock[s.key] > 0);
+    setSelectedSize(firstInStock ? firstInStock.label : null);
   }, [product]);
 
   useEffect(() => {
@@ -315,7 +337,13 @@ export const ProductDisplay = (props) => {
             <h3>Select Colour</h3>
             <div className="productdisplay-right-colors">
               {product.colors && product.colors.map((color, index) => (
-                <div key={index}>{color}</div>
+                <div
+                  key={index}
+                  className={selectedColor === color ? "color-selected" : ""}
+                  onClick={() => setSelectedColor(color)}
+                >
+                  {color}
+                </div>
               ))}
             </div>
           </div>
@@ -327,11 +355,20 @@ export const ProductDisplay = (props) => {
               <a href="/">size guide</a>.
             </p>
             <div className="productdisplay-right-sizes">
-              <div className="productdisplay-right-size-element">S</div>
-              <div className="productdisplay-right-size-element">M</div>
-              <div className="productdisplay-right-size-element">L</div>
-              <div className="productdisplay-right-size-element">XL</div>
-              <div className="productdisplay-right-size-element">XXL</div>
+              {sizes.map((size) => {
+                const inStock = product.stock[size.key] > 0;
+                return (
+                  <div
+                    key={size.label}
+                    className={`productdisplay-right-size-element${
+                      selectedSize === size.label ? " size-selected" : ""
+                    }${!inStock ? " size-out-of-stock" : ""}`}
+                    onClick={() => inStock && setSelectedSize(size.label)}
+                  >
+                    {size.label}
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="productdisplay-right-category-buttons">
