@@ -142,11 +142,6 @@ export const Item = (props) => {
       className={`item ${isVisible ? "item--visible" : ""}${isOutOfStock ? " item--out-of-stock" : ""}`}
       style={{ transitionDelay: staggerDelay }}
     >
-      {isOutOfStock && (
-        <div className="item-out-of-stock-overlay">
-          <span>Out of stock</span>
-        </div>
-      )}
       {(favourite || inCart) && (
         <div className="item-status-floating">
           {favourite && (
@@ -183,6 +178,11 @@ export const Item = (props) => {
             }
           }}
         >
+          {isOutOfStock && (
+            <div className="item-out-of-stock-overlay">
+              <span>Out of stock</span>
+            </div>
+          )}
           {/* Only render the image when visible */}
           {isVisible && (
             <img className="item-image" src={hoverImage} alt={props.title} />
