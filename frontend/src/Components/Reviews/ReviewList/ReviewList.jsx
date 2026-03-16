@@ -7,6 +7,8 @@ const REVIEWS_PER_BATCH = 5;
 export const ReviewList = ({ reviews }) => {
   const [sortOption, setSortOption] = useState("helpful");
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
+  const [showPhotosOnly, setShowPhotosOnly] = useState(false);
+  const [starFilter, setStarFilter] = useState(null);
   const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_BATCH);
   const sentinelRef = useRef(null);
 
@@ -33,24 +35,35 @@ export const ReviewList = ({ reviews }) => {
     setVisibleCount(REVIEWS_PER_BATCH);
   };
 
-  // Filter reviews based on verification status
-  const filterByVerification = () => {
-    if (showVerifiedOnly) {
-      return reviews.filter((review) => review.verified);
-    }
-    return reviews;
-  };
-
   // Handle verified review filter option change
   const handleVerifiedChange = () => {
     setShowVerifiedOnly(!showVerifiedOnly);
     setVisibleCount(REVIEWS_PER_BATCH);
   };
 
+  // Handle photos only filter
+  const handlePhotosChange = () => {
+    setShowPhotosOnly(!showPhotosOnly);
+    setVisibleCount(REVIEWS_PER_BATCH);
+  };
+
+  // Handle star rating filter
+  const handleStarFilter = (star) => {
+    setStarFilter(starFilter === star ? null : star);
+    setVisibleCount(REVIEWS_PER_BATCH);
+  };
+
   // Sort and filter reviews
-  const sortedAndFilteredReviews = filterByVerification(
-    sortByOption(sortOption)
-  );
+  let sortedAndFilteredReviews = sortByOption(sortOption);
+  if (showVerifiedOnly) {
+    sortedAndFilteredReviews = sortedAndFilteredReviews.filter((r) => r.verified);
+  }
+  if (showPhotosOnly) {
+    sortedAndFilteredReviews = sortedAndFilteredReviews.filter((r) => r.images && r.images.length > 0);
+  }
+  if (starFilter) {
+    sortedAndFilteredReviews = sortedAndFilteredReviews.filter((r) => r.rating === starFilter);
+  }
 
   const hasMore = visibleCount < sortedAndFilteredReviews.length;
 
@@ -84,15 +97,23 @@ export const ReviewList = ({ reviews }) => {
   return (
     <div className="reviewlist">
       <div className="reviewlist-header">
-        <div className="reviewlist-title">
-          <h3>Top Reviews From Ireland</h3>
-        </div>
-        <div className="reviewlist-sort">
-          <div className="reviewlist-sort-filter">
-          <label className="reviewlist-sort-filter-label">Sort by</label>
-            <div className="reviewlist-sort-filter-option">
+        <h3>Top Reviews From Ireland</h3>
+        <div className="reviewlist-filters">
+          <div className="reviewlist-stars">
+            {[5, 4, 3, 2, 1].map((star) => (
+              <button
+                key={star}
+                className={`reviewlist-stars-button ${starFilter === star ? "active" : ""}`}
+                onClick={() => handleStarFilter(star)}
+              >
+                {star} ★
+              </button>
+            ))}
+          </div>
+          <div className="reviewlist-filters-sort">
+            <label>Sort by</label>
+            <div className="reviewlist-filters-sort-select">
               <select
-                id="sortOption"
                 value={sortOption}
                 onChange={handleSortChange}
               >
@@ -103,15 +124,23 @@ export const ReviewList = ({ reviews }) => {
               </select>
             </div>
           </div>
-          <div className="reviewlist-sort-verified">
-            <label className="reviewlist-sort-verified-label">
+          <div className="reviewlist-filters-toggles">
+            <label className="reviewlist-filters-toggle">
               Verified
+              <input
+                type="checkbox"
+                checked={showVerifiedOnly}
+                onChange={handleVerifiedChange}
+              />
             </label>
-            <input className="reviewlist-sort-verified-input"
-              type="checkbox"
-              checked={showVerifiedOnly}
-              onChange={handleVerifiedChange}
-            />
+            <label className="reviewlist-filters-toggle">
+              With photos
+              <input
+                type="checkbox"
+                checked={showPhotosOnly}
+                onChange={handlePhotosChange}
+              />
+            </label>
           </div>
         </div>
       </div>

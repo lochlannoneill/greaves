@@ -4,82 +4,75 @@
   gap: 4vh;
 }
 
+/* ── Header ── */
 .reviewlist-header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-@media screen and (max-width: 480px) {
-  .reviewlist-header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 2vh;
-  }
+.reviewlist-header h3 {
+  margin: 0;
+  white-space: nowrap;
 }
 
-.reviewlist-sort {
+/* ── Filters ── */
+.reviewlist-filters {
   display: flex;
   flex-direction: column;
-  gap: 0.5vh;
+  align-items: flex-end;
+  gap: 10px;
+  color: grey;
 }
 
-@media screen and (max-width: 480px) {
-  .reviewlist-sort {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    width: 100%;
+@media screen and (max-width: 768px) {
+  .reviewlist-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .reviewlist-filters {
+    align-items: flex-end;
   }
 }
 
-.reviewlist-sort * {
-  color: grey;
-}
-
-.reviewlist-sort > * {
+.reviewlist-filters-sort {
   display: flex;
-  flex-direction: row;
-  gap: 8px;
-  min-height: 2rem;
-}
-
-.reviewlist-sort-filter {
-  display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 8px;
+  color: grey;
 }
 
-.reviewlist-sort-filter-option {
+.reviewlist-filters-sort label {
+  white-space: nowrap;
   color: grey;
+}
+
+.reviewlist-filters-sort-select {
   border: 2px solid #ccc;
   border-radius: 4px;
-  background-color: #fff;
+  background: #fff;
   position: relative;
-  /* width: 180px; */
 }
 
-.reviewlist-sort-filter-option select {
-  width: 100%;
+.reviewlist-filters-sort-select select {
   border: none;
-  background-color: transparent;
+  background: transparent;
   font-size: 1rem;
   font-weight: 500;
-  padding: 8px;
+  padding: 8px 28px 8px 8px;
   appearance: none;
-}
-
-.reviewlist-sort-filter-option select:hover {
+  color: grey;
   cursor: pointer;
 }
 
-.reviewlist-sort-filter-option select:focus {
+.reviewlist-filters-sort-select select:focus {
   outline: none;
 }
 
-.reviewlist-sort-filter-option:after {
+.reviewlist-filters-sort-select::after {
   content: "▼";
   position: absolute;
   top: 50%;
@@ -90,29 +83,40 @@
   font-size: 0.8rem;
 }
 
-.reviewlist-sort-verified {
+.reviewlist-filters-toggles {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  gap: 16px;
 }
 
-.reviewlist-sort-verified input[type="checkbox"] {
+.reviewlist-filters-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: grey;
+  white-space: nowrap;
+}
+
+.reviewlist-filters-toggle input[type="checkbox"] {
   appearance: none;
   width: 20px;
   height: 20px;
-  background-color: #fff;
+  background: #fff;
   border: 2px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
   position: relative;
   transition: background-color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
 }
 
-.reviewlist-sort-verified input[type="checkbox"]:checked {
+.reviewlist-filters-toggle input[type="checkbox"]:checked {
   background-color: grey;
   border-color: grey;
 }
 
-.reviewlist-sort-verified input[type="checkbox"]:checked::after {
+.reviewlist-filters-toggle input[type="checkbox"]:checked::after {
   content: "✔";
   position: absolute;
   color: white;
@@ -122,10 +126,33 @@
   transform: translate(-50%, -50%);
 }
 
-.reviewlist-sort-verified label {
-  cursor: pointer;
+/* ── Star pills ── */
+.reviewlist-stars {
   display: flex;
-  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reviewlist-stars-button {
+  padding: 6px 14px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
+  color: grey;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reviewlist-stars-button:hover {
+  border-color: #999;
+}
+
+.reviewlist-stars-button.active {
+  background: grey;
+  border-color: grey;
+  color: #fff;
 }
 
 .reviewlist-reviews {
