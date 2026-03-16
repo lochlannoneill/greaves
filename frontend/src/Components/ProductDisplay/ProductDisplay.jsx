@@ -23,7 +23,7 @@ const formatPrice = (price) => {
 
 export const ProductDisplay = (props) => {
   const { product, reviewAverageRating, reviewCount } = props;
-  const { cart, addCart, removeCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
+  const { cart, addCart, removeCart, countInCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
 
   const colors = Object.keys(product.stock);
@@ -422,7 +422,7 @@ export const ProductDisplay = (props) => {
             <button
               onClick={() => {
                 if (selectedColor && selectedSize) {
-                  addCart(product.id);
+                  addCart(product.id, selectedColor, selectedSize);
                 }
               }}
               disabled={!selectedColor || !selectedSize}
@@ -433,21 +433,21 @@ export const ProductDisplay = (props) => {
               <FontAwesomeIcon icon={faCartShopping_solid} />
             </button>
           </div>
-            {cart[product.id] > 0 && (
+            {countInCart(product.id) > 0 && (
               <div className="productdisplay-right-cart-status">
                 <p className="productdisplay-right-already">
-                  {cart[product.id] === 1
+                  {countInCart(product.id) === 1
                     ? "This item is"
-                    : `${cart[product.id]} `}{" "}
+                    : `${countInCart(product.id)} `}{" "}
                   already in the cart
                 </p>
 
               <span
                   className="productdisplay-right-remove"
-                  onClick={() => removeCart(product.id)}
+                  onClick={() => removeCart(product.id, selectedColor, selectedSize)}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && removeCart(product.id)}
+                  onKeyDown={(e) => e.key === "Enter" && removeCart(product.id, selectedColor, selectedSize)}
                 >
                   <FontAwesomeIcon icon={faTrashCan} /> Remove 1
                 </span>
