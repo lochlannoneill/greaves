@@ -150,6 +150,21 @@
   color: darkorange;
 }
 
+.reviewlist-filters-reset {
+  background: none;
+  border: none;
+  color: grey;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  padding: 0;
+  align-self: flex-end;
+}
+
+.reviewlist-filters-reset:hover {
+  color: #333;
+}
+
 .reviewlist-reviews {
   display: flex;
   flex-direction: column;

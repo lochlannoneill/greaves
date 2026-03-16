@@ -56,6 +56,14 @@ export const ReviewList = ({ reviews }) => {
     setVisibleCount(REVIEWS_PER_BATCH);
   };
 
+  const handleResetFilters = () => {
+    setSortOption("helpful");
+    setShowVerifiedOnly(false);
+    setShowPhotosOnly(false);
+    setStarFilter(null);
+    setVisibleCount(REVIEWS_PER_BATCH);
+  };
+
   // Sort and filter reviews
   let sortedAndFilteredReviews = sortByOption(sortOption);
   if (showVerifiedOnly) {
@@ -149,6 +157,9 @@ export const ReviewList = ({ reviews }) => {
               />
             </label>
           </div>
+          <button className="reviewlist-filters-reset" onClick={handleResetFilters}>
+            Reset filters
+          </button>
         </div>
       </div>
       <div className="reviewlist-reviews">
