@@ -126,33 +126,28 @@
   transform: translate(-50%, -50%);
 }
 
-/* ── Star pills ── */
+/* ── Star filter ── */
 .reviewlist-stars {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
 }
 
-.reviewlist-stars-button {
-  padding: 6px 14px;
-  border: 2px solid #ccc;
-  border-radius: 20px;
-  background: #fff;
+.reviewlist-stars label {
   color: grey;
-  font-size: 0.9rem;
-  font-weight: 500;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.reviewlist-star {
+  font-size: 1.3rem;
+  color: #ccc;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color 0.15s;
 }
 
-.reviewlist-stars-button:hover {
-  border-color: #999;
-}
-
-.reviewlist-stars-button.active {
-  background: grey;
-  border-color: grey;
-  color: #fff;
+.reviewlist-star.active {
+  color: darkorange;
 }
 
 .reviewlist-reviews {

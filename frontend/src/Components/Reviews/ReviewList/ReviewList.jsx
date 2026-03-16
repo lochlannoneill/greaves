@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
 import "./ReviewList.css";
 
@@ -9,6 +11,7 @@ export const ReviewList = ({ reviews }) => {
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
   const [showPhotosOnly, setShowPhotosOnly] = useState(false);
   const [starFilter, setStarFilter] = useState(null);
+  const [hoverStar, setHoverStar] = useState(null);
   const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_BATCH);
   const sentinelRef = useRef(null);
 
@@ -100,14 +103,18 @@ export const ReviewList = ({ reviews }) => {
         <h3>Top Reviews From Ireland</h3>
         <div className="reviewlist-filters">
           <div className="reviewlist-stars">
-            {[5, 4, 3, 2, 1].map((star) => (
-              <button
+            <label>Filter by</label>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <FontAwesomeIcon
                 key={star}
-                className={`reviewlist-stars-button ${starFilter === star ? "active" : ""}`}
+                icon={faStar}
+                className={`reviewlist-star ${
+                  (hoverStar !== null ? star <= hoverStar : star <= starFilter) ? "active" : ""
+                }`}
+                onMouseEnter={() => setHoverStar(star)}
+                onMouseLeave={() => setHoverStar(null)}
                 onClick={() => handleStarFilter(star)}
-              >
-                {star} ★
-              </button>
+              />
             ))}
           </div>
           <div className="reviewlist-filters-sort">
