@@ -1,7 +1,6 @@
-import React from "react";
 import { useEffect } from "react";
 import { Hero } from "../../Components/Hero/Hero";
-import { Divider } from "../../Components/Divider/Divider";
+import { DividerSale } from "../../Components/Dividers/DividerSale/DividerSale";
 import { Popular } from "../../Components/Popular/Popular";
 import { NewCollections } from "../../Components/NewCollections/NewCollections";
 
@@ -13,7 +12,7 @@ export const Shop = () => {
   return (
     <div>
       <Hero />
-      <Divider />
+      <DividerSale />
       <NewCollections />
       <Popular />
     </div>

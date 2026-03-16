@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react";
 import { CartItems } from "../../Components/Cart/CartItems/CartItems";
 import { CartCheckout } from "../../Components/Cart/CartCheckout/CartCheckout";

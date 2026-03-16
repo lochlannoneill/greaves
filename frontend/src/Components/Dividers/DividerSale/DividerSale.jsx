@@ -1,7 +1,6 @@
-import React from "react";
-import "./Divider.css";
+import "./DividerSale.css";
 
-export const Divider = () => {
+export const DividerSale = () => {
   return (
     <div className="divider">
       <h2>THE WINTER SALE IS HERE</h2>

@@ -487,3 +487,32 @@
     transform: none !important;
   }
 }
+
+/* Out of stock */
+.item.item--out-of-stock {
+  position: relative;
+}
+
+.item.item--out-of-stock .item-image-container,
+.item.item--out-of-stock .item-content {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+.item-out-of-stock-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background-color: rgba(150, 150, 150, 0.7);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}

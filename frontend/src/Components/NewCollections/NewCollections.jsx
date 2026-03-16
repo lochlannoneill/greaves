@@ -1,6 +1,5 @@
-import React from "react";
 import products from "../../Assets/products/product_data";
-import { ItemList } from "../ItemList/ItemList";
+import { ItemList } from "../Items/ItemList/ItemList";
 import "./NewCollections.css";
 
 export const NewCollections = () => {

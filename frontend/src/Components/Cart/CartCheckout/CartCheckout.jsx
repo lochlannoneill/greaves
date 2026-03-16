@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../../../Context/ShopContext";
 import "./CartCheckout.css";
 
@@ -10,8 +10,11 @@ export const CartCheckout = () => {
   // Calculate subtotal
   useEffect(() => {
     let sub = 0;
-    for (const product of products) {
-      sub += product.price * cart[product.id];
+    for (const order of cart) {
+      const product = products.find((p) => p.id === order.productId);
+      if (product) {
+        sub += product.price * order.quantity;
+      }
     }
     setSubtotal(sub);
   }, [products, cart]);

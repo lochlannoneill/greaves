@@ -1,8 +1,7 @@
-import React from "react";
 import products from "../../Assets/products/product_data.js";
-import { DividerWomen } from "../DividerWomen/DividerWomen.jsx";
-import { DividerMen } from "../DividerMen/DividerMen.jsx";
-import { ItemList } from "../ItemList/ItemList";
+import { DividerWomen } from "../Dividers/DividerWomen/DividerWomen.jsx";
+import { DividerMen } from "../Dividers/DividerMen/DividerMen.jsx";
+import { ItemList } from "../Items/ItemList/ItemList";
 import "./Popular.css";
 
 export const Popular = () => {

@@ -1,0 +1,140 @@
+.reviewfilters {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  color: grey;
+}
+
+@media screen and (max-width: 768px) {
+  .reviewfilters {
+    align-items: flex-end;
+  }
+}
+
+.reviewfilters-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: grey;
+}
+
+.reviewfilters-sort label {
+  white-space: nowrap;
+  color: grey;
+}
+
+.reviewfilters-sort-select {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  position: relative;
+}
+
+.reviewfilters-sort-select select {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 28px 8px 8px;
+  appearance: none;
+  color: grey;
+  cursor: pointer;
+}
+
+.reviewfilters-sort-select select:focus {
+  outline: none;
+}
+
+.reviewfilters-sort-select::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.reviewfilters-toggles {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.reviewfilters-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: grey;
+  white-space: nowrap;
+}
+
+.reviewfilters-toggle input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.reviewfilters-toggle input[type="checkbox"]:checked {
+  background-color: grey;
+  border-color: grey;
+}
+
+.reviewfilters-toggle input[type="checkbox"]:checked::after {
+  content: "✔";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ── Star filter ── */
+.reviewfilters-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reviewfilters-stars label {
+  color: grey;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.reviewfilters-star {
+  font-size: 1.3rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.reviewfilters-star.active {
+  color: darkorange;
+}
+
+.reviewfilters-reset {
+  background: none;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 0;
+  align-self: flex-end;
+}
+
+.reviewfilters-reset:hover {
+  color: grey;
+}

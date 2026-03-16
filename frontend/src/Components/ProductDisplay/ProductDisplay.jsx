@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart as faHeart_solid,
@@ -7,6 +7,7 @@ import {
   faCartShopping as faCartShopping_solid,
   faExpand,
   faMagnifyingGlass,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeart_regular } from "@fortawesome/free-regular-svg-icons";
 import { ShopContext } from "../../Context/ShopContext";
@@ -22,15 +23,44 @@ const formatPrice = (price) => {
 
 export const ProductDisplay = (props) => {
   const { product, reviewAverageRating, reviewCount } = props;
-  const { cart, addCart, removeCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
+  const { addCart, removeCart, countInCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
 
+  const colors = Object.keys(product.stock);
+
   const totalStock = Object.values(product.stock).reduce(
-    (acc, curr) => acc + curr,
+    (acc, colorStock) =>
+      acc + Object.values(colorStock).reduce((a, b) => a + b, 0),
     0
   );
 
+  const sizes = [
+    { label: "S", key: "small" },
+    { label: "M", key: "medium" },
+    { label: "L", key: "large" },
+    { label: "XL", key: "xlarge" },
+    { label: "XXL", key: "xxlarge" },
+  ];
+
+  const getDefaultSize = (color) => {
+    if (!color || !product.stock[color]) return null;
+    const firstInStock = sizes.find((s) => product.stock[color][s.key] > 0);
+    return firstInStock ? firstInStock.label : null;
+  };
+
+  const defaultColor = totalStock > 0 && colors.length > 0 ? colors[0] : null;
+
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
+  const [selectedColor, setSelectedColor] = useState(defaultColor);
+  const [selectedSize, setSelectedSize] = useState(totalStock > 0 ? getDefaultSize(defaultColor) : null);
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+    const sizeObj = sizes.find((s) => s.label === selectedSize);
+    if (!sizeObj || !product.stock[color] || product.stock[color][sizeObj.key] <= 0) {
+      setSelectedSize(getDefaultSize(color));
+    }
+  };
 
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
@@ -43,6 +73,21 @@ export const ProductDisplay = (props) => {
 
   useEffect(() => {
     setSelectedImage(product.images[0]);
+    const newColors = Object.keys(product.stock);
+    const newTotalStock = Object.values(product.stock).reduce(
+      (acc, colorStock) =>
+        acc + Object.values(colorStock).reduce((a, b) => a + b, 0),
+      0
+    );
+    if (newTotalStock > 0) {
+      const newDefaultColor = newColors.length > 0 ? newColors[0] : null;
+      setSelectedColor(newDefaultColor);
+      setSelectedSize(getDefaultSize(newDefaultColor));
+    } else {
+      setSelectedColor(null);
+      setSelectedSize(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   useEffect(() => {
@@ -284,7 +329,7 @@ export const ProductDisplay = (props) => {
               className={`productdisplay-right-stock ${
                 totalStock === 0
                   ? "out-of-stock"
-                  : totalStock < 5
+                  : totalStock < 50
                   ? "low-stock"
                   : ""
               }`}
@@ -292,7 +337,7 @@ export const ProductDisplay = (props) => {
               <p>
                 {totalStock === 0
                   ? "Out of stock"
-                  : totalStock < 5
+                  : totalStock < 50
                   ? `Only ${totalStock} left in stock!`
                   : `${totalStock} left in stock`}
               </p>
@@ -314,14 +359,18 @@ export const ProductDisplay = (props) => {
           <div className="productdisplay-right-color">
             <h3>Select Colour</h3>
             <div className="productdisplay-right-colors">
-              <div>White</div>
-              <div>Black</div>
-              <div>Blue</div>
-              <div>Green</div>
-              <div>Grey</div>
-              <div>Red</div>
-              <div>Yellow</div>
-              <div>Purple</div>
+              {colors.map((color, index) => {
+                const colorInStock = Object.values(product.stock[color]).some((v) => v > 0);
+                return (
+                  <div
+                    key={index}
+                    className={`${selectedColor === color ? "color-selected" : ""}${!colorInStock ? " color-out-of-stock" : ""}`}
+                    onClick={() => colorInStock && handleColorChange(color)}
+                  >
+                    {color}
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="productdisplay-right-size">
@@ -332,11 +381,22 @@ export const ProductDisplay = (props) => {
               <a href="/">size guide</a>.
             </p>
             <div className="productdisplay-right-sizes">
-              <div className="productdisplay-right-size-element">S</div>
-              <div className="productdisplay-right-size-element">M</div>
-              <div className="productdisplay-right-size-element">L</div>
-              <div className="productdisplay-right-size-element">XL</div>
-              <div className="productdisplay-right-size-element">XXL</div>
+              {sizes.map((size) => {
+                const inStock = selectedColor && product.stock[selectedColor]
+                  ? product.stock[selectedColor][size.key] > 0
+                  : false;
+                return (
+                  <div
+                    key={size.label}
+                    className={`productdisplay-right-size-element${
+                      selectedSize === size.label ? " size-selected" : ""
+                    }${!inStock ? " size-out-of-stock" : ""}`}
+                    onClick={() => inStock && setSelectedSize(size.label)}
+                  >
+                    {size.label}
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="productdisplay-right-category-buttons">
@@ -362,31 +422,35 @@ export const ProductDisplay = (props) => {
             </button>
             <button
               onClick={() => {
-                addCart(product.id);
+                if (selectedColor && selectedSize) {
+                  addCart(product.id, selectedColor, selectedSize);
+                }
               }}
-              className="productdisplay-right-category-buttons-cart"
+              disabled={!selectedColor || !selectedSize}
+              className={`productdisplay-right-category-buttons-cart${!selectedColor || !selectedSize ? " disabled" : ""}`}
+              title={!selectedColor || !selectedSize ? "Please select a colour and size" : ""}
             >
               <span>Add to Cart</span>
               <FontAwesomeIcon icon={faCartShopping_solid} />
             </button>
           </div>
-            {cart[product.id] > 0 && (
+            {countInCart(product.id) > 0 && (
               <div className="productdisplay-right-cart-status">
                 <p className="productdisplay-right-already">
-                  {cart[product.id] === 1
+                  {countInCart(product.id) === 1
                     ? "This item is"
-                    : `${cart[product.id]} `}{" "}
+                    : `${countInCart(product.id)} `}{" "}
                   already in the cart
                 </p>
 
               <span
                   className="productdisplay-right-remove"
-                  onClick={() => removeCart(product.id)}
+                  onClick={() => removeCart(product.id, selectedColor, selectedSize)}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && removeCart(product.id)}
+                  onKeyDown={(e) => e.key === "Enter" && removeCart(product.id, selectedColor, selectedSize)}
                 >
-                  Remove 1 from cart
+                  <FontAwesomeIcon icon={faTrashCan} /> Remove 1
                 </span>
               </div>
             )}

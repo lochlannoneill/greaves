@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import { BannerCategory } from "../../Components/BannerCategory/BannerCategory";
-import { ItemList } from "../../Components/ItemList/ItemList";
+import { ItemList } from "../../Components/Items/ItemList/ItemList";
 import "./ShopCategory.css";
 
 export const ShopCategory = (props) => {

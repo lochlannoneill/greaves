@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ShopContext } from "../../../Context/ShopContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,8 +20,8 @@ export const CartItems = () => {
     removeAllCart,
     toggleFavorite,
     isFavorite,
-  } = useContext(ShopContext); // Added toggleFavorite and isFavorite
-  const cartEmpty = Object.values(cart).every((quantity) => quantity <= 0); // Check if there are any items in the cart
+  } = useContext(ShopContext);
+  const cartEmpty = cart.length === 0;
 
   // Calculate the discount percentage for each item individually
   const calculateDiscountPercentage = (price, price_previous) => {
@@ -31,10 +31,11 @@ export const CartItems = () => {
   return (
     <div className="cartitems">
       <h1>My Cart</h1>
-      {products.map((product) => {
-        if (cart[product.id] > 0) {
-          return (
-            <div className="cartitems-list" key={product.id}>
+      {cart.map((order) => {
+        const product = products.find((p) => p.id === order.productId);
+        if (!product) return null;
+        return (
+            <div className="cartitems-list" key={`${order.productId}-${order.color}-${order.size}`}>
               <div className="cartitems-item">
                 <div className="cartitems-item-left">
                   <Link to={`/products/${product.id}`}>
@@ -72,16 +73,16 @@ export const CartItems = () => {
                   </div>
                   <div className="cartitems-item-right-info">
                     <p className="cartitems-item-right-size">
-                      <b>Size:</b> order.size
+                      <b>Size:</b> {order.size}
                     </p>
                     <p className="cartitems-item-right-color">
-                      <b>Color:</b> order.color
+                      <b>Color:</b> {order.color}
                     </p>
                   </div>
                   <div className="cartitems-item-right-calculations">
                     <div className="cartitems-item-right-cost">
                       <p className="cartitems-item-right-quantity">
-                        {cart[product.id]}
+                        {order.quantity}
                       </p>
                       <p>x</p>
                       <p
@@ -98,7 +99,7 @@ export const CartItems = () => {
                       )}
                       <p>=</p>
                       <p className="cartitems-item-right-total">
-                        &euro;{(product.price * cart[product.id]).toFixed(2)}
+                        &euro;{(product.price * order.quantity).toFixed(2)}
                       </p>
                     </div>
                     <div className="cartitems-right-actions">
@@ -106,7 +107,7 @@ export const CartItems = () => {
                         <button
                           className="cartitems-item-right-remove"
                           onClick={() => {
-                            removeCart(product.id);
+                            removeCart(order.productId, order.color, order.size);
                           }}
                         >
                           <FontAwesomeIcon icon={faMinus} />
@@ -114,7 +115,7 @@ export const CartItems = () => {
                         <button
                           className="cartitems-item-right-add"
                           onClick={() => {
-                            addCart(product.id);
+                            addCart(order.productId, order.color, order.size);
                           }}
                         >
                           <FontAwesomeIcon icon={faPlus} />
@@ -140,7 +141,7 @@ export const CartItems = () => {
                         <button
                           className="cartitems-item-right-delete"
                           onClick={() => {
-                            removeAllCart(product.id);
+                            removeAllCart(order.productId, order.color, order.size);
                           }}
                         >
                           <FontAwesomeIcon icon={faTrash} />
@@ -151,10 +152,7 @@ export const CartItems = () => {
                 </div>
               </div>
             </div>
-          );
-        } else {
-          return null; // Don't render anything for products not in the cart
-        }
+        );
       })}
 
       {cartEmpty && <p className="cartitems-message">No items in cart</p>}

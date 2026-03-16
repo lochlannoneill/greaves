@@ -1,4 +1,3 @@
-import React from "react";
 import { ReviewAverage } from "./ReviewAverage/ReviewAverage";
 import { ReviewSentiment } from "./ReviewSentiment/ReviewSentiment"
 import { ReviewInput } from "./ReviewInput/ReviewInput";
@@ -18,12 +17,11 @@ export const Reviews = ({ reviews, productId }) => {
       ) : (
         <div className="reviews-group">
           <div className="reviews-left">
-            <ReviewAverage reviews={reviews} />
-            <ReviewSentiment />
+            <ReviewAverage reviews={filteredReviews} />
+            <ReviewSentiment reviews={filteredReviews} />
           </div>
           <div className="reviews-right">
             <ReviewInput />
-            <hr />
             <ReviewList reviews={filteredReviews} />
           </div>
         </div>

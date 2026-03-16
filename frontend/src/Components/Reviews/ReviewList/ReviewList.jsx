@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Review from "../Review/Review";
+import { ReviewFilters } from "../ReviewFilters/ReviewFilters";
 import "./ReviewList.css";
 
+const REVIEWS_PER_BATCH = 5;
+
 export const ReviewList = ({ reviews }) => {
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("helpful");
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
+  const [showPhotosOnly, setShowPhotosOnly] = useState(false);
+  const [starFilter, setStarFilter] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_BATCH);
+  const sentinelRef = useRef(null);
 
   // TODO - Helpful -> does not continue after first.
   // Sorting function based on the selected option
@@ -28,70 +33,99 @@ export const ReviewList = ({ reviews }) => {
   // Handle sorting option change
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
-  };
-
-  // Filter reviews based on verification status
-  const filterByVerification = () => {
-    if (showVerifiedOnly) {
-      return reviews.filter((review) => review.verified);
-    }
-    return reviews;
+    setVisibleCount(REVIEWS_PER_BATCH);
   };
 
   // Handle verified review filter option change
   const handleVerifiedChange = () => {
     setShowVerifiedOnly(!showVerifiedOnly);
+    setVisibleCount(REVIEWS_PER_BATCH);
+  };
+
+  // Handle photos only filter
+  const handlePhotosChange = () => {
+    setShowPhotosOnly(!showPhotosOnly);
+    setVisibleCount(REVIEWS_PER_BATCH);
+  };
+
+  // Handle star rating filter
+  const handleStarFilter = (star) => {
+    setStarFilter(starFilter === star ? null : star);
+    setVisibleCount(REVIEWS_PER_BATCH);
+  };
+
+  const handleResetFilters = () => {
+    setSortOption("helpful");
+    setShowVerifiedOnly(false);
+    setShowPhotosOnly(false);
+    setStarFilter(null);
+    setVisibleCount(REVIEWS_PER_BATCH);
   };
 
   // Sort and filter reviews
-  const sortedAndFilteredReviews = filterByVerification(
-    sortByOption(sortOption)
-  );
+  let sortedAndFilteredReviews = sortByOption(sortOption);
+  if (showVerifiedOnly) {
+    sortedAndFilteredReviews = sortedAndFilteredReviews.filter((r) => r.verified);
+  }
+  if (showPhotosOnly) {
+    sortedAndFilteredReviews = sortedAndFilteredReviews.filter((r) => r.images && r.images.length > 0);
+  }
+  if (starFilter) {
+    sortedAndFilteredReviews = sortedAndFilteredReviews.filter((r) => r.rating === starFilter);
+  }
+
+  const hasMore = visibleCount < sortedAndFilteredReviews.length;
+
+  const loadMore = useCallback(() => {
+    setVisibleCount((prev) =>
+      Math.min(prev + REVIEWS_PER_BATCH, sortedAndFilteredReviews.length)
+    );
+  }, [sortedAndFilteredReviews.length]);
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    if (!hasMore || !sentinelRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+
+    const sentinel = sentinelRef.current;
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasMore, loadMore]);
 
   return (
     <div className="reviewlist">
-      <div className="reviewlist-header">
-        <div className="reviewlist-title">
-          <h3>Top Reviews From Ireland</h3>
-        </div>
-        <div className="reviewlist-sort">
-          <div className="reviewlist-sort-filter">
-          <label className="reviewlist-sort-filter-label">Sort by</label>
-            <div className="reviewlist-sort-filter-option">
-              <select
-                id="sortOption"
-                value={sortOption}
-                onChange={handleSortChange}
-              >
-                <option value="helpful">most helpful</option>
-                <option value="rating">highest ratings</option>
-                <option value="lowestRating">lowest ratings</option>
-                <option value="date">most recent</option>
-              </select>
-            </div>
-          </div>
-          <div className="reviewlist-sort-verified">
-            <label className="reviewlist-sort-verified-label">
-              Verified
-            </label>
-            <input className="reviewlist-sort-verified-input"
-              type="checkbox"
-              checked={showVerifiedOnly}
-              onChange={handleVerifiedChange}
-            />
-          </div>
-        </div>
-      </div>
+      <ReviewFilters
+        sortOption={sortOption}
+        showVerifiedOnly={showVerifiedOnly}
+        showPhotosOnly={showPhotosOnly}
+        starFilter={starFilter}
+        onSortChange={handleSortChange}
+        onVerifiedChange={handleVerifiedChange}
+        onPhotosChange={handlePhotosChange}
+        onStarFilter={handleStarFilter}
+        onReset={handleResetFilters}
+      />
       <div className="reviewlist-reviews">
-        {sortedAndFilteredReviews.map((review) => (
+        {sortedAndFilteredReviews.slice(0, visibleCount).map((review) => (
           <Review key={review.id} review={review} />
         ))}
       </div>
-      <div className="reviewlist-showmore">
-        <p>
-          Show More <FontAwesomeIcon icon={faChevronDown} size="2xs" />
-        </p>
-      </div>
+      {hasMore && (
+        <div ref={sentinelRef} className="reviewlist-loading">
+          <div className="reviewlist-spinner" />
+        </div>
+      )}
     </div>
   );
 };

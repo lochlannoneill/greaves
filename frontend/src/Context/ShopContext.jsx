@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import products from "../Assets/products/product_data";
 import reviews from "../Assets/reviews/reviews";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,11 +10,7 @@ import {
 export const ShopContext = createContext(null);
 
 const getCart = () => {
-  let cart = {};
-  for (const product of products) {
-    cart[product.id] = 0;
-  }
-  return cart;
+  return [];
 };
 
 const getFavorites = () => {
@@ -36,42 +32,64 @@ const ShopContextProvider = (props) => {
   // Cart
   const [cart, setCart] = useState(getCart());
   const getCartCount = () => {
-    let count = 0;
-    Object.values(cart).forEach((quantity) => {
-      count += quantity;
-    });
-    return count;
+    return cart.reduce((count, item) => count + item.quantity, 0);
   };
   const isInCart = (productId) => {
-    return cart[productId] > 0;
+    return cart.some((item) => item.productId === productId);
   };
   const countInCart = (productId) => {
-    return cart[productId];
+    return cart
+      .filter((item) => item.productId === productId)
+      .reduce((sum, item) => sum + item.quantity, 0);
   };
-  const addCart = (productId) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [productId]: prevCart[productId] + 1,
-    }));
+  const addCart = (productId, color, size) => {
+    setCart((prevCart) => {
+      const index = prevCart.findIndex(
+        (item) =>
+          item.productId === productId &&
+          item.color === color &&
+          item.size === size
+      );
+      if (index >= 0) {
+        const updated = [...prevCart];
+        updated[index] = { ...updated[index], quantity: updated[index].quantity + 1 };
+        return updated;
+      }
+      return [...prevCart, { productId, color, size, quantity: 1 }];
+    });
     togglePopup("Added to cart!");
   };
-  const removeCart = (productId) => {
-    if (cart[productId] > 0) {
-      setCart((prevCart) => ({
-        ...prevCart,
-        [productId]: prevCart[productId] - 1,
-      }));
-      togglePopup("Removed from cart!");
-    }
+  const removeCart = (productId, color, size) => {
+    setCart((prevCart) => {
+      const index = prevCart.findIndex(
+        (item) =>
+          item.productId === productId &&
+          item.color === color &&
+          item.size === size
+      );
+      if (index < 0) return prevCart;
+      const item = prevCart[index];
+      if (item.quantity <= 1) {
+        return prevCart.filter((_, i) => i !== index);
+      }
+      const updated = [...prevCart];
+      updated[index] = { ...updated[index], quantity: updated[index].quantity - 1 };
+      return updated;
+    });
+    togglePopup("Removed from cart!");
   };
-  const removeAllCart = (productId) => {
-    if (cart[productId] > 0) {
-      setCart((prevCart) => ({
-        ...prevCart,
-        [productId]: 0,
-      }));
-      togglePopup("Removed all from cart!");
-    }
+  const removeAllCart = (productId, color, size) => {
+    setCart((prevCart) =>
+      prevCart.filter(
+        (item) =>
+          !(
+            item.productId === productId &&
+            item.color === color &&
+            item.size === size
+          )
+      )
+    );
+    togglePopup("Removed all from cart!");
   };
 
   // Favorites

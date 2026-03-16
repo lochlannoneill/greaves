@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,8 +7,8 @@ import {
   faHeart as faHeart_solid,
   faCartShopping as faCartShopping_solid,
 } from "@fortawesome/free-solid-svg-icons";
-import { ShopContext } from "../../Context/ShopContext";
-import { useInView } from "../../Hooks/useInView";
+import { ShopContext } from "../../../Context/ShopContext";
+import { useInView } from "../../../Hooks/useInView";
 import "./Item.css";
 
 const maxTitleChars = 48;
@@ -121,6 +121,15 @@ export const Item = (props) => {
   const inCart = isInCart(props.id);
   const cartCount = countInCart(props.id);
 
+  const totalStock = props.stock
+    ? Object.values(props.stock).reduce(
+        (acc, colorStock) =>
+          acc + Object.values(colorStock).reduce((a, b) => a + b, 0),
+        0
+      )
+    : null;
+  const isOutOfStock = totalStock === 0;
+
   // Format prices
   const currentPrice = formatPrice(props.price);
   const previousPrice = props.price_previous
@@ -130,7 +139,7 @@ export const Item = (props) => {
   return (
     <div
       ref={ref}
-      className={`item ${isVisible ? "item--visible" : ""}`}
+      className={`item ${isVisible ? "item--visible" : ""}${isOutOfStock ? " item--out-of-stock" : ""}`}
       style={{ transitionDelay: staggerDelay }}
     >
       {(favourite || inCart) && (
@@ -169,6 +178,11 @@ export const Item = (props) => {
             }
           }}
         >
+          {isOutOfStock && (
+            <div className="item-out-of-stock-overlay">
+              <span>Out of stock</span>
+            </div>
+          )}
           {/* Only render the image when visible */}
           {isVisible && (
             <img className="item-image" src={hoverImage} alt={props.title} />
