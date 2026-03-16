@@ -19,7 +19,7 @@ export const DividerMen = () => {
         </Link>
         <div className="divider-men-content">
           <h2>Explore Trending Collections</h2>
-          <p>Find the latest styles in men’s fashion — modern, bold, and comfortable.</p>
+          <p>Find the latest styles in men's fashion — modern, bold, and comfortable.</p>
           <Link to="/men" className="divider-men-button">
             Shop Now
           </Link>

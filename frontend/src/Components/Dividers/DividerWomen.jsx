@@ -1,7 +1,7 @@
 import image_model from "../../Assets/image_divider_woman.png";
 import { Link } from "react-router-dom";
 import "./DividerWomen.css";
-import { useInView } from "../../Hooks/useInView"; // adjust path
+import { useInView } from "../../Hooks/useInView";
 
 export const DividerWomen = () => {
   const { ref, isVisible } = useInView({ threshold: 0.5 });
@@ -14,7 +14,7 @@ export const DividerWomen = () => {
       <div className="divider-women-info">
         <div className="divider-women-content">
           <h2>Popular Amongst Women</h2>
-          <p>Discover the latest trends in women’s fashion, curated for style and comfort.</p>
+          <p>Discover the latest trends in women's fashion, curated for style and comfort.</p>
           <Link to="/women" className="divider-women-button">
             Shop Now
           </Link>

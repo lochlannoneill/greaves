@@ -23,7 +23,7 @@ const formatPrice = (price) => {
 
 export const ProductDisplay = (props) => {
   const { product, reviewAverageRating, reviewCount } = props;
-  const { cart, addCart, removeCart, countInCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
+  const { addCart, removeCart, countInCart, toggleFavorite, isFavorite, showPopup, popupMessage } =
     useContext(ShopContext);
 
   const colors = Object.keys(product.stock);
@@ -87,6 +87,7 @@ export const ProductDisplay = (props) => {
       setSelectedColor(null);
       setSelectedSize(null);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   useEffect(() => {
