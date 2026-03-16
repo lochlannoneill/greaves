@@ -27,6 +27,14 @@
   gap: 0.5vh;
 }
 
+@media screen and (max-width: 480px) {
+  .reviewlist-sort {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
 .reviewlist-sort * {
   color: grey;
 }
