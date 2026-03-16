@@ -23,6 +23,10 @@
     flex-direction: column;
     align-items: stretch;
   }
+
+  .reviewlist-header h3 {
+    text-align: center;
+  }
 }
 
 .reviewlist-reviews {

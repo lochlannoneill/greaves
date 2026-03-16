@@ -127,14 +127,14 @@
 .reviewfilters-reset {
   background: none;
   border: none;
-  color: grey;
+  color: #bbb;
   cursor: pointer;
   font-size: 0.85rem;
-  text-decoration: underline;
+  font-weight: bold;
   padding: 0;
   align-self: flex-end;
 }
 
 .reviewfilters-reset:hover {
-  color: #333;
+  color: grey;
 }
