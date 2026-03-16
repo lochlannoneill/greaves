@@ -1,4 +1,3 @@
-import React from "react";
 import exclusive from "../../Assets/products/exclusive.png";
 import "./Offers.css";
 

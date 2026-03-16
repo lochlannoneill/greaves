@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react";
 import { Hero } from "../../Components/Hero/Hero";
 import { Divider } from "../../Components/Divider/Divider";

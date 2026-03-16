@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import products from "../Assets/products/product_data";
 import reviews from "../Assets/reviews/reviews";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

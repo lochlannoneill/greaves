@@ -1,4 +1,3 @@
-import React from "react";
 import { ReviewAverage } from "./ReviewAverage/ReviewAverage";
 import { ReviewSentiment } from "./ReviewSentiment/ReviewSentiment"
 import { ReviewInput } from "./ReviewInput/ReviewInput";

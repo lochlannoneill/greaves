@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import image_hero from "../../Assets/image_hero.png";
 import "./Hero.css";
 

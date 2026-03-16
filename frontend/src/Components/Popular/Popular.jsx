@@ -1,4 +1,3 @@
-import React from "react";
 import products from "../../Assets/products/product_data.js";
 import { DividerWomen } from "../DividerWomen/DividerWomen.jsx";
 import { DividerMen } from "../DividerMen/DividerMen.jsx";

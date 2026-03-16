@@ -1,4 +1,3 @@
-import React from "react";
 import image_model from "../../Assets/image_divider_woman.png";
 import { Link } from "react-router-dom";
 import "./DividerWomen.css";
