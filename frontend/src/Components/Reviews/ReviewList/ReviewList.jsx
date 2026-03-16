@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
+import { ReviewFilters } from "../ReviewFilters/ReviewFilters";
 import "./ReviewList.css";
 
 const REVIEWS_PER_BATCH = 5;
@@ -11,7 +10,6 @@ export const ReviewList = ({ reviews }) => {
   const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
   const [showPhotosOnly, setShowPhotosOnly] = useState(false);
   const [starFilter, setStarFilter] = useState(null);
-  const [hoverStar, setHoverStar] = useState(null);
   const [visibleCount, setVisibleCount] = useState(REVIEWS_PER_BATCH);
   const sentinelRef = useRef(null);
 
@@ -109,58 +107,17 @@ export const ReviewList = ({ reviews }) => {
     <div className="reviewlist">
       <div className="reviewlist-header">
         <h3>Top Reviews From Ireland</h3>
-        <div className="reviewlist-filters">
-          <div className="reviewlist-stars">
-            <label>Filter by</label>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <FontAwesomeIcon
-                key={star}
-                icon={faStar}
-                className={`reviewlist-star ${
-                  (hoverStar !== null ? star <= hoverStar : star <= starFilter) ? "active" : ""
-                }`}
-                onMouseEnter={() => setHoverStar(star)}
-                onMouseLeave={() => setHoverStar(null)}
-                onClick={() => handleStarFilter(star)}
-              />
-            ))}
-          </div>
-          <div className="reviewlist-filters-sort">
-            <label>Sort by</label>
-            <div className="reviewlist-filters-sort-select">
-              <select
-                value={sortOption}
-                onChange={handleSortChange}
-              >
-                <option value="helpful">most helpful</option>
-                <option value="rating">highest ratings</option>
-                <option value="lowestRating">lowest ratings</option>
-                <option value="date">most recent</option>
-              </select>
-            </div>
-          </div>
-          <div className="reviewlist-filters-toggles">
-            <label className="reviewlist-filters-toggle">
-              Verified
-              <input
-                type="checkbox"
-                checked={showVerifiedOnly}
-                onChange={handleVerifiedChange}
-              />
-            </label>
-            <label className="reviewlist-filters-toggle">
-              With photos
-              <input
-                type="checkbox"
-                checked={showPhotosOnly}
-                onChange={handlePhotosChange}
-              />
-            </label>
-          </div>
-          <button className="reviewlist-filters-reset" onClick={handleResetFilters}>
-            Reset filters
-          </button>
-        </div>
+        <ReviewFilters
+          sortOption={sortOption}
+          showVerifiedOnly={showVerifiedOnly}
+          showPhotosOnly={showPhotosOnly}
+          starFilter={starFilter}
+          onSortChange={handleSortChange}
+          onVerifiedChange={handleVerifiedChange}
+          onPhotosChange={handlePhotosChange}
+          onStarFilter={handleStarFilter}
+          onReset={handleResetFilters}
+        />
       </div>
       <div className="reviewlist-reviews">
         {sortedAndFilteredReviews.slice(0, visibleCount).map((review) => (
