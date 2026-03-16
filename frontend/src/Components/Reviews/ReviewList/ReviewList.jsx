@@ -105,20 +105,17 @@ export const ReviewList = ({ reviews }) => {
 
   return (
     <div className="reviewlist">
-      <div className="reviewlist-header">
-        <h3>Top Reviews From Ireland</h3>
-        <ReviewFilters
-          sortOption={sortOption}
-          showVerifiedOnly={showVerifiedOnly}
-          showPhotosOnly={showPhotosOnly}
-          starFilter={starFilter}
-          onSortChange={handleSortChange}
-          onVerifiedChange={handleVerifiedChange}
-          onPhotosChange={handlePhotosChange}
-          onStarFilter={handleStarFilter}
-          onReset={handleResetFilters}
-        />
-      </div>
+      <ReviewFilters
+        sortOption={sortOption}
+        showVerifiedOnly={showVerifiedOnly}
+        showPhotosOnly={showPhotosOnly}
+        starFilter={starFilter}
+        onSortChange={handleSortChange}
+        onVerifiedChange={handleVerifiedChange}
+        onPhotosChange={handlePhotosChange}
+        onStarFilter={handleStarFilter}
+        onReset={handleResetFilters}
+      />
       <div className="reviewlist-reviews">
         {sortedAndFilteredReviews.slice(0, visibleCount).map((review) => (
           <Review key={review.id} review={review} />

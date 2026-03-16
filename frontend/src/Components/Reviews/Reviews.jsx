@@ -22,7 +22,6 @@ export const Reviews = ({ reviews, productId }) => {
           </div>
           <div className="reviews-right">
             <ReviewInput />
-            <hr />
             <ReviewList reviews={filteredReviews} />
           </div>
         </div>

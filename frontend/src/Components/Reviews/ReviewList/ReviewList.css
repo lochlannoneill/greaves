@@ -4,31 +4,6 @@
   gap: 4vh;
 }
 
-/* ── Header ── */
-.reviewlist-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.reviewlist-header h3 {
-  margin: 0;
-  white-space: nowrap;
-}
-
-@media screen and (max-width: 768px) {
-  .reviewlist-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .reviewlist-header h3 {
-    text-align: center;
-  }
-}
-
 .reviewlist-reviews {
   display: flex;
   flex-direction: column;
