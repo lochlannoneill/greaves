@@ -1,7 +1,7 @@
-import image_model from "../../Assets/image_divider_man.png";
+import image_model from "../../../Assets/image_divider_man.png";
 import { Link } from "react-router-dom";
 import "./DividerMen.css";
-import { useInView } from "../../Hooks/useInView";
+import { useInView } from "../../../Hooks/useInView";
 
 export const DividerMen = () => {
   const { ref, isVisible } = useInView({ threshold: 0.5 });

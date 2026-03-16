@@ -1,6 +1,6 @@
 import products from "../../Assets/products/product_data.js";
-import { DividerWomen } from "../Dividers/DividerWomen.jsx";
-import { DividerMen } from "../Dividers/DividerMen.jsx";
+import { DividerWomen } from "../Dividers/DividerWomen/DividerWomen.jsx";
+import { DividerMen } from "../Dividers/DividerMen/DividerMen.jsx";
 import { ItemList } from "../Items/ItemList/ItemList";
 import "./Popular.css";
 

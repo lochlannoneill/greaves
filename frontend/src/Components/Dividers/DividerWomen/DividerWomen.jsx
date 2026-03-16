@@ -1,7 +1,7 @@
-import image_model from "../../Assets/image_divider_woman.png";
+import image_model from "../../../Assets/image_divider_woman.png";
 import { Link } from "react-router-dom";
 import "./DividerWomen.css";
-import { useInView } from "../../Hooks/useInView";
+import { useInView } from "../../../Hooks/useInView";
 
 export const DividerWomen = () => {
   const { ref, isVisible } = useInView({ threshold: 0.5 });
