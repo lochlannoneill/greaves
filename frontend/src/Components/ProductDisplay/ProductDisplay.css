@@ -97,6 +97,8 @@
   position: absolute;
   align-items: center;
   color: white;
+  z-index: 1;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .productdisplay-main-wrapper {
