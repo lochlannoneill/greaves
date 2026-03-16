@@ -585,12 +585,11 @@
 @media only screen and (max-width: 1400px) {
   .productdisplay {
     flex-direction: column;
-    gap: 4vh;
+    gap: 2vh;
   }
 
   .productdisplay-left {
     position: relative;
-    margin: auto;
     top: 0;
   }
 }
@@ -653,12 +652,12 @@
 
 @media screen and (max-width: 768px) {
   .productdisplay {
-    margin: 4vh 8vw 0 8vw; /* Breadcrumb is display:none on mobile, this removes its top margin; add  here */
+    margin: 4vh 4vw 0 4vw; /* Breadcrumb is display:none on mobile, this removes its top margin; add  here */
   }
 
   .productdisplay-left {
-    margin: auto;
     gap: 2vw;
+    width: 100%;
   }
 
   .productdisplay-img-list {
@@ -677,12 +676,15 @@
     font-size: 4vw;
   }
 
+  .productdisplay-img {
+    flex: 1;
+    min-width: 0;
+  }
+
   .productdisplay-main-img {
-    width: calc(
-      100% - 4vw
-    );
-    width: 64vw;
-    height: 72vw;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 64 / 72;
     object-fit: cover;
   }
 
