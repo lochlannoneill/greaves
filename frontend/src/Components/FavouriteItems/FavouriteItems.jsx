@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
-import { Item } from "../Item/Item";
+import { Item } from "../Items/Item/Item";
 import "./FavouriteItems.css";
 
 export const FavouriteItems = () => {

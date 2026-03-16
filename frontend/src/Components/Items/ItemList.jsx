@@ -1,0 +1,28 @@
+import { Item } from "./Item";
+import "./ItemList.css";
+
+export const ItemList = ({ products, category }) => {
+  // Filter products based on the category
+  const filteredProducts = category
+    ? products.filter((product) => product.category === category)
+    : products;
+
+  return (
+    <div className="itemlist">
+      {filteredProducts.map((item, index) => (
+        <Item
+          key={item.id}
+          index={index}
+          id={item.id}
+          title={item.title}
+          images={item.images}
+          price={item.price}
+          price_previous={item.price_previous}
+          description={item.description}
+          reviews={item.reviews}
+          stock={item.stock}
+        />
+      ))}
+    </div>
+  );
+};

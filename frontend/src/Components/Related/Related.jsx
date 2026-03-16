@@ -1,5 +1,5 @@
 import products from "../../Assets/products/product_data.js";
-import { ItemList } from "../ItemList/ItemList";
+import { ItemList } from "../Items/ItemList/ItemList";
 import "./Related.css";
 
 export const Related = ({ tags, category }) => {

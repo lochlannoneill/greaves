@@ -1,7 +1,7 @@
 import products from "../../Assets/products/product_data.js";
 import { DividerWomen } from "../Dividers/DividerWomen.jsx";
 import { DividerMen } from "../Dividers/DividerMen.jsx";
-import { ItemList } from "../ItemList/ItemList";
+import { ItemList } from "../Items/ItemList/ItemList";
 import "./Popular.css";
 
 export const Popular = () => {

@@ -7,8 +7,8 @@ import {
   faHeart as faHeart_solid,
   faCartShopping as faCartShopping_solid,
 } from "@fortawesome/free-solid-svg-icons";
-import { ShopContext } from "../../Context/ShopContext";
-import { useInView } from "../../Hooks/useInView";
+import { ShopContext } from "../../../Context/ShopContext";
+import { useInView } from "../../../Hooks/useInView";
 import "./Item.css";
 
 const maxTitleChars = 48;
